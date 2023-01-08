@@ -1,0 +1,46 @@
+{
+  "applications": ["ticket"],
+  "changelogDate": "20230108053934",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "seat",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "row",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "col",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "seatClass",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Seat",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "ticket",
+      "otherEntityRelationshipName": "seat",
+      "ownerSide": false,
+      "relationshipName": "ticket",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "stage",
+      "otherEntityRelationshipName": "seat",
+      "relationshipName": "stage",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

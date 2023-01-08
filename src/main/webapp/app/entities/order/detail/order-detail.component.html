@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="order">
+      <h2 data-cy="orderDetailsHeading"><span>Order</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>Id</span></dt>
+        <dd>
+          <span>{{ order.id }}</span>
+        </dd>
+        <dt><span>Status</span></dt>
+        <dd>
+          <span>{{ order.status }}</span>
+        </dd>
+        <dt><span>Transaction Code</span></dt>
+        <dd>
+          <span>{{ order.transactionCode }}</span>
+        </dd>
+        <dt><span>Is Paid</span></dt>
+        <dd>
+          <span>{{ order.isPaid }}</span>
+        </dd>
+        <dt><span>Issued Date</span></dt>
+        <dd>
+          <span>{{ order.issuedDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>App User</span></dt>
+        <dd>
+          <div *ngIf="order.appUser">
+            <a [routerLink]="['/app-user', order.appUser.id, 'view']">{{ order.appUser.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Event</span></dt>
+        <dd>
+          <div *ngIf="order.event">
+            <a [routerLink]="['/event', order.event.id, 'view']">{{ order.event.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/order', order.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

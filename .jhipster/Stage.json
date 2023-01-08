@@ -1,0 +1,41 @@
+{
+  "applications": ["ticket"],
+  "changelogDate": "20230108054034",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "stage",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "location",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Stage",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "seat",
+      "otherEntityRelationshipName": "stage",
+      "relationshipName": "seat",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "event",
+      "otherEntityRelationshipName": "stage",
+      "relationshipName": "event",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}
