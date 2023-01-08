@@ -27,11 +27,11 @@ public class Comment implements Serializable {
     private String content;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "user", "orders", "comments" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user", "orders", "comments", "events" }, allowSetters = true)
     private AppUser appUser;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "orders", "comments", "eventType", "stage" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "orders", "comments", "eventType", "stage", "createdBy" }, allowSetters = true)
     private Event event;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

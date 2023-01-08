@@ -9,21 +9,23 @@ export const sampleWithRequiredData: IEvent = {
 };
 
 export const sampleWithPartialData: IEvent = {
-  id: 13579,
-  ageRestriction: 2671,
-  startTime: dayjs('2023-01-08T05:07'),
-  dateBefore: dayjs('2023-01-08T03:38'),
+  id: 2671,
+  ageRestriction: 14349,
+  startTime: dayjs('2023-01-08T09:29'),
+  dateBefore: dayjs('2023-01-08T14:12'),
 };
 
 export const sampleWithFullData: IEvent = {
-  id: 852,
-  name: 'pixel',
-  description: 'withdrawal',
-  ageRestriction: 20747,
-  status: EventStatus['REJECTED'],
-  startTime: dayjs('2023-01-07T16:10'),
-  endTime: dayjs('2023-01-08T05:11'),
-  dateBefore: dayjs('2023-01-07T18:16'),
+  id: 28577,
+  name: 'Maryland withdrawal indigo',
+  description: 'Account',
+  ageRestriction: 82454,
+  status: EventStatus['PENDING'],
+  startTime: dayjs('2023-01-07T15:09'),
+  endTime: dayjs('2023-01-08T10:33'),
+  dateBefore: dayjs('2023-01-07T22:25'),
+  image: '../fake-data/blob/hipster.png',
+  imageContentType: 'unknown',
 };
 
 export const sampleWithNewData: NewEvent = {

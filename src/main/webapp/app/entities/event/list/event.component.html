@@ -33,7 +33,7 @@
   <div class="row" id="entities" *ngIf="events && events.length > 0">
     <div *ngFor="let event of events" class="col-12 col-md-3 mb-3">
       <div class="card">
-        <img class="card-img-top" [src]="'https://picsum.photos/1024?random=' + event.id" alt="Card image cap" />
+        <img class="card-img-top" [src]="'data:' + event.imageContentType + ';base64,' + event.image" alt="Card image cap" />
         <div class="card-body">
           <h5 class="card-title">{{ event.name }}</h5>
           <p class="card-text">{{ event.description }}</p>

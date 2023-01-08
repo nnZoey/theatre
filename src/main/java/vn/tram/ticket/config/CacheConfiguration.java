@@ -49,6 +49,7 @@ public class CacheConfiguration {
             createCache(cm, vn.tram.ticket.domain.AppUser.class.getName());
             createCache(cm, vn.tram.ticket.domain.AppUser.class.getName() + ".orders");
             createCache(cm, vn.tram.ticket.domain.AppUser.class.getName() + ".comments");
+            createCache(cm, vn.tram.ticket.domain.AppUser.class.getName() + ".events");
             createCache(cm, vn.tram.ticket.domain.EventType.class.getName());
             createCache(cm, vn.tram.ticket.domain.EventType.class.getName() + ".events");
             createCache(cm, vn.tram.ticket.domain.Event.class.getName());

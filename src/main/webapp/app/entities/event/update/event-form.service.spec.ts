@@ -27,8 +27,10 @@ describe('Event Form Service', () => {
             startTime: expect.any(Object),
             endTime: expect.any(Object),
             dateBefore: expect.any(Object),
+            image: expect.any(Object),
             eventType: expect.any(Object),
             stage: expect.any(Object),
+            createdBy: expect.any(Object),
           })
         );
       });
@@ -46,8 +48,10 @@ describe('Event Form Service', () => {
             startTime: expect.any(Object),
             endTime: expect.any(Object),
             dateBefore: expect.any(Object),
+            image: expect.any(Object),
             eventType: expect.any(Object),
             stage: expect.any(Object),
+            createdBy: expect.any(Object),
           })
         );
       });

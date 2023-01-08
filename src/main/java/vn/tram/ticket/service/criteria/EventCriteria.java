@@ -63,6 +63,8 @@ public class EventCriteria implements Serializable, Criteria {
 
     private LongFilter stageId;
 
+    private LongFilter createdById;
+
     private Boolean distinct;
 
     public EventCriteria() {}
@@ -80,6 +82,7 @@ public class EventCriteria implements Serializable, Criteria {
         this.commentId = other.commentId == null ? null : other.commentId.copy();
         this.eventTypeId = other.eventTypeId == null ? null : other.eventTypeId.copy();
         this.stageId = other.stageId == null ? null : other.stageId.copy();
+        this.createdById = other.createdById == null ? null : other.createdById.copy();
         this.distinct = other.distinct;
     }
 
@@ -268,6 +271,21 @@ public class EventCriteria implements Serializable, Criteria {
         this.stageId = stageId;
     }
 
+    public LongFilter getCreatedById() {
+        return createdById;
+    }
+
+    public LongFilter createdById() {
+        if (createdById == null) {
+            createdById = new LongFilter();
+        }
+        return createdById;
+    }
+
+    public void setCreatedById(LongFilter createdById) {
+        this.createdById = createdById;
+    }
+
     public Boolean getDistinct() {
         return distinct;
     }
@@ -298,6 +316,7 @@ public class EventCriteria implements Serializable, Criteria {
             Objects.equals(commentId, that.commentId) &&
             Objects.equals(eventTypeId, that.eventTypeId) &&
             Objects.equals(stageId, that.stageId) &&
+            Objects.equals(createdById, that.createdById) &&
             Objects.equals(distinct, that.distinct)
         );
     }
@@ -317,6 +336,7 @@ public class EventCriteria implements Serializable, Criteria {
             commentId,
             eventTypeId,
             stageId,
+            createdById,
             distinct
         );
     }
@@ -337,6 +357,7 @@ public class EventCriteria implements Serializable, Criteria {
             (commentId != null ? "commentId=" + commentId + ", " : "") +
             (eventTypeId != null ? "eventTypeId=" + eventTypeId + ", " : "") +
             (stageId != null ? "stageId=" + stageId + ", " : "") +
+            (createdById != null ? "createdById=" + createdById + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }
