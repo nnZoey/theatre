@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
-import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
 
 import { IOrder } from '../order.model';
 
+import { ASC, DEFAULT_SORT_DATA, DESC, ITEM_DELETED_EVENT, SORT } from 'app/config/navigation.constants';
 import { ITEMS_PER_PAGE, PAGE_HEADER, TOTAL_COUNT_RESPONSE_HEADER } from 'app/config/pagination.constants';
-import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/config/navigation.constants';
-import { EntityArrayResponseType, OrderService } from '../service/order.service';
+import { AccountService } from 'app/core/auth/account.service';
+import { OrderStatus } from 'app/entities/enumerations/order-status.model';
+import { FilterOptions, IFilterOption, IFilterOptions } from 'app/shared/filter/filter.model';
 import { OrderDeleteDialogComponent } from '../delete/order-delete-dialog.component';
-import { FilterOptions, IFilterOptions, IFilterOption } from 'app/shared/filter/filter.model';
+import { EntityArrayResponseType, OrderService } from '../service/order.service';
 
 @Component({
   selector: 'jhi-order',
@@ -32,6 +34,7 @@ export class OrderComponent implements OnInit {
     protected orderService: OrderService,
     protected activatedRoute: ActivatedRoute,
     public router: Router,
+    protected accountService: AccountService,
     protected modalService: NgbModal
   ) {}
 
@@ -41,6 +44,20 @@ export class OrderComponent implements OnInit {
     this.load();
 
     this.filters.filterChanges.subscribe(filterOptions => this.handleNavigation(1, this.predicate, this.ascending, filterOptions));
+
+    this.accountService.getCurrentAppUser().subscribe(appUser => {
+      if (this.accountService.hasAnyAuthority(['ROLE_USER'])) {
+        this.filters.addFilter('appUserId.equals', String(appUser.id));
+      }
+    });
+
+    this.router.events.subscribe(() => {
+      this.accountService.getCurrentAppUser().subscribe(appUser => {
+        if (this.accountService.hasAnyAuthority(['ROLE_USER'])) {
+          this.filters.addFilter('appUserId.equals', String(appUser.id));
+        }
+      });
+    });
   }
 
   delete(order: IOrder): void {
@@ -73,6 +90,45 @@ export class OrderComponent implements OnInit {
 
   navigateToPage(page = this.page): void {
     this.handleNavigation(page, this.predicate, this.ascending, this.filters.filterOptions);
+  }
+
+  getBadgeClass(order: IOrder): string {
+    switch (order.status) {
+      case OrderStatus.PAID:
+        return 'badge text-bg-success';
+      case OrderStatus.CANCELLED:
+        return 'badge text-bg-danger';
+      case OrderStatus.PENDING:
+        return 'badge text-bg-warning';
+      default:
+        return '';
+    }
+  }
+
+  approve(order: IOrder): void {
+    order.status = OrderStatus.PAID;
+    this.orderService.partialUpdate(order).subscribe({
+      next: () => {
+        this.load();
+      },
+    });
+  }
+
+  reject(order: IOrder): void {
+    order.status = OrderStatus.CANCELLED;
+    this.orderService.partialUpdate(order).subscribe({
+      next: () => {
+        this.load();
+      },
+    });
+  }
+
+  getApproveButtonRendered(order: IOrder): boolean {
+    return this.accountService.hasAnyAuthority(['ROLE_ADMIN', 'ROLE_SELLER']) && order.status !== OrderStatus.PAID;
+  }
+
+  getRejectButtonRendered(order: IOrder): boolean {
+    return this.accountService.hasAnyAuthority(['ROLE_ADMIN', 'ROLE_SELLER']) && order.status !== OrderStatus.CANCELLED;
   }
 
   protected loadFromBackendWithRouteInformations(): Observable<EntityArrayResponseType> {

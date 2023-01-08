@@ -11,6 +11,13 @@ import dayjs from 'dayjs/esm';
 
 import { IEvent } from '../event.model';
 
+const basePrice = 220000;
+const classPrice: { [key: string]: number } = {
+  A: 1.5,
+  B: 1.2,
+  C: 1,
+};
+
 @Component({
   selector: 'jhi-event-detail',
   templateUrl: './event-detail.component.html',
@@ -113,12 +120,6 @@ export class EventDetailComponent implements OnInit {
   }
 
   getTotalPrice(): number {
-    const basePrice = 220000;
-    const classPrice: { [key: string]: number } = {
-      A: 1.5,
-      B: 1.2,
-      C: 1,
-    };
     return this.selectedSeats.reduce((total, seat) => total + basePrice * classPrice[seat.seatClass!], 0);
   }
 
@@ -157,6 +158,7 @@ export class EventDetailComponent implements OnInit {
                 .create({
                   seat: { id: seat.id },
                   order: { id: orderId },
+                  price: basePrice * classPrice[seat.seatClass!],
                   id: null,
                 })
                 .subscribe()
