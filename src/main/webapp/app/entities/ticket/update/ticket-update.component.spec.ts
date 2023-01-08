@@ -53,22 +53,26 @@ describe('Ticket Management Update Component', () => {
   });
 
   describe('ngOnInit', () => {
-    it('Should call seat query and add missing value', () => {
+    it('Should call Seat query and add missing value', () => {
       const ticket: ITicket = { id: 456 };
       const seat: ISeat = { id: 37805 };
       ticket.seat = seat;
 
       const seatCollection: ISeat[] = [{ id: 27166 }];
       jest.spyOn(seatService, 'query').mockReturnValue(of(new HttpResponse({ body: seatCollection })));
-      const expectedCollection: ISeat[] = [seat, ...seatCollection];
+      const additionalSeats = [seat];
+      const expectedCollection: ISeat[] = [...additionalSeats, ...seatCollection];
       jest.spyOn(seatService, 'addSeatToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ ticket });
       comp.ngOnInit();
 
       expect(seatService.query).toHaveBeenCalled();
-      expect(seatService.addSeatToCollectionIfMissing).toHaveBeenCalledWith(seatCollection, seat);
-      expect(comp.seatsCollection).toEqual(expectedCollection);
+      expect(seatService.addSeatToCollectionIfMissing).toHaveBeenCalledWith(
+        seatCollection,
+        ...additionalSeats.map(expect.objectContaining)
+      );
+      expect(comp.seatsSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should call Order query and add missing value', () => {
@@ -103,7 +107,7 @@ describe('Ticket Management Update Component', () => {
       activatedRoute.data = of({ ticket });
       comp.ngOnInit();
 
-      expect(comp.seatsCollection).toContain(seat);
+      expect(comp.seatsSharedCollection).toContain(seat);
       expect(comp.ordersSharedCollection).toContain(order);
       expect(comp.ticket).toEqual(ticket);
     });

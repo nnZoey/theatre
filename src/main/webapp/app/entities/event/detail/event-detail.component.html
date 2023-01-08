@@ -3,10 +3,6 @@
     <h2 data-cy="eventDetailsHeading"><span>Event</span></h2>
     <hr />
 
-    <jhi-alert-error></jhi-alert-error>
-
-    <jhi-alert></jhi-alert>
-
     <dl class="row jh-entity-details">
       <!-- <dt><span>ID</span></dt>
         <dd>
@@ -97,14 +93,14 @@
             <span>Total:</span>
           </dt>
           <dd>
-            <span>3000</span>
+            <span>{{ getFormattedPrice() }}</span>
           </dd>
 
           <dt *ngIf="paying" class="mb-1">
             <span>Transaction Code</span>
           </dt>
           <dd *ngIf="paying">
-            <input type="text" class="form-control" />
+            <input [(ngModel)]="transactionCode" type="text" class="form-control" />
           </dd>
         </div>
         <button *ngIf="!paying" [disabled]="selectedSeats.length === 0" type="button" class="w-100 btn btn-success" (click)="pay()">
@@ -119,7 +115,7 @@
           </div>
 
           <div class="col-6">
-            <button type="button" class="w-100 btn btn-success">
+            <button [disabled]="confirmingPay" type="button" class="w-100 btn btn-success" (click)="confirmPay()">
               <span>Pay</span>
             </button>
           </div>

@@ -33,7 +33,7 @@ public class Stage implements Serializable {
 
     @OneToMany(mappedBy = "stage")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "ticket", "stage" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "tickets", "stage" }, allowSetters = true)
     private Set<Seat> seats = new HashSet<>();
 
     @OneToMany(mappedBy = "stage")

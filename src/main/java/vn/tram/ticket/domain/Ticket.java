@@ -26,9 +26,8 @@ public class Ticket implements Serializable {
     @Column(name = "price")
     private Long price;
 
-    @JsonIgnoreProperties(value = { "ticket", "stage" }, allowSetters = true)
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "tickets", "stage" }, allowSetters = true)
     private Seat seat;
 
     @ManyToOne

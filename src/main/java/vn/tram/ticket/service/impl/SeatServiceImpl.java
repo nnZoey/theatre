@@ -1,9 +1,6 @@
 package vn.tram.ticket.service.impl;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -68,19 +65,6 @@ public class SeatServiceImpl implements SeatService {
     public Page<Seat> findAll(Pageable pageable) {
         log.debug("Request to get all Seats");
         return seatRepository.findAll(pageable);
-    }
-
-    /**
-     *  Get all the seats where Ticket is {@code null}.
-     *  @return the list of entities.
-     */
-    @Transactional(readOnly = true)
-    public List<Seat> findAllWhereTicketIsNull() {
-        log.debug("Request to get all seats where Ticket is null");
-        return StreamSupport
-            .stream(seatRepository.findAll().spliterator(), false)
-            .filter(seat -> seat.getTicket() == null)
-            .collect(Collectors.toList());
     }
 
     @Override

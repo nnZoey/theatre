@@ -20,7 +20,7 @@
           <label class="form-label" for="field_seat">Seat</label>
           <select class="form-control" id="field_seat" data-cy="seat" name="seat" formControlName="seat" [compareWith]="compareSeat">
             <option [ngValue]="null"></option>
-            <option [ngValue]="seatOption" *ngFor="let seatOption of seatsCollection">{{ seatOption.id }}</option>
+            <option [ngValue]="seatOption" *ngFor="let seatOption of seatsSharedCollection">{{ seatOption.id }}</option>
           </select>
         </div>
 

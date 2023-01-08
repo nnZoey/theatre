@@ -97,7 +97,7 @@ public class SeatQueryService extends QueryService<Seat> {
             if (criteria.getTicketId() != null) {
                 specification =
                     specification.and(
-                        buildSpecification(criteria.getTicketId(), root -> root.join(Seat_.ticket, JoinType.LEFT).get(Ticket_.id))
+                        buildSpecification(criteria.getTicketId(), root -> root.join(Seat_.tickets, JoinType.LEFT).get(Ticket_.id))
                     );
             }
             if (criteria.getStageId() != null) {
