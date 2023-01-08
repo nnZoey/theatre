@@ -20,6 +20,7 @@ export class MainComponent implements OnInit {
         this.updateTitle();
       }
     });
+    this.router.navigate(['/event']);
   }
 
   private getPageTitle(routeSnapshot: ActivatedRouteSnapshot): string {

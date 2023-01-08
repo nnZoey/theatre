@@ -18,8 +18,10 @@ import { EntityArrayResponseType, EventService } from '../service/event.service'
   styleUrls: ['./event.component.scss'],
 })
 export class EventComponent implements OnInit {
-  events?: IEvent[];
+  initEvents?: IEvent[];
+  searchedEvents?: IEvent[];
   isLoading = false;
+  searchText?: string;
 
   predicate = 'id';
   ascending = true;
@@ -68,6 +70,21 @@ export class EventComponent implements OnInit {
     });
   }
 
+  onSearchEvent(event: any): void {
+    if (event.length >= 1) {
+      const upperEvent = event.toUpperCase();
+      this.searchedEvents = this.initEvents!.filter(element => {
+        if (element.name?.toUpperCase() === upperEvent) {
+          return true;
+        }
+        if (element.name!.toUpperCase().indexOf(upperEvent) >= 0) {
+          return true;
+        }
+        return false;
+      }).sort((a: any, b: any) => b.startTime - a.startTime);
+    }
+  }
+
   navigateToWithComponentValues(): void {
     this.handleNavigation(this.page, this.predicate, this.ascending, this.filters.filterOptions);
   }
@@ -95,7 +112,8 @@ export class EventComponent implements OnInit {
   protected onResponseSuccess(response: EntityArrayResponseType): void {
     this.fillComponentAttributesFromResponseHeader(response.headers);
     const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
-    this.events = dataFromBody;
+    this.initEvents = dataFromBody;
+    this.searchedEvents = this.initEvents;
   }
 
   protected fillComponentAttributesFromResponseBody(data: IEvent[] | null): IEvent[] {

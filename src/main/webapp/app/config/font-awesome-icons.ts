@@ -37,6 +37,7 @@ import {
   faUsers,
   faUsersCog,
   faWrench,
+
   // jhipster-needle-add-icon-import
 } from '@fortawesome/free-solid-svg-icons';
 

@@ -1,6 +1,18 @@
 <div>
   <h2 id="page-heading" data-cy="EventHeading">
-    <span>Events</span>
+    <div class="d-flex col-12 mb-3 justify-content-between">
+      <span>Events</span>
+      <div class="col-3">
+        <input
+          class=""
+          [(ngModel)]="searchText"
+          (change)="onSearchEvent(searchText)"
+          type="text"
+          class="form-control"
+          placeholder="Searching"
+        />
+      </div>
+    </div>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
@@ -23,12 +35,12 @@
 
   <jhi-filter [filters]="filters"></jhi-filter>
 
-  <div class="alert alert-warning" id="no-result" *ngIf="events?.length === 0">
+  <div class="alert alert-warning" id="no-result" *ngIf="searchedEvents?.length === 0">
     <span>No Events found</span>
   </div>
 
-  <div class="row" id="entities" *ngIf="events && events.length > 0">
-    <div *ngFor="let event of events" class="col-12 col-md-3 mb-3">
+  <div class="row" id="entities" *ngIf="searchedEvents && searchedEvents.length > 0">
+    <div *ngFor="let event of searchedEvents" class="col-12 col-md-3 mb-3">
       <div class="card">
         <img class="card-img-top" [src]="'data:' + event.imageContentType + ';base64,' + event.image" alt="Card image cap" />
         <div class="card-body">
@@ -40,7 +52,7 @@
     </div>
   </div>
 
-  <div *ngIf="events && events.length > 0">
+  <div *ngIf="searchedEvents && searchedEvents.length > 0">
     <div class="d-flex justify-content-center">
       <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
     </div>
