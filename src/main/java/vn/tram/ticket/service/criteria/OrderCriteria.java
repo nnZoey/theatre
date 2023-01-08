@@ -5,7 +5,7 @@ import java.util.Objects;
 import org.springdoc.api.annotations.ParameterObject;
 import tech.jhipster.service.Criteria;
 import tech.jhipster.service.filter.*;
-import vn.tram.ticket.domain.enumeration.Status;
+import vn.tram.ticket.domain.enumeration.OrderStatus;
 
 /**
  * Criteria class for the {@link vn.tram.ticket.domain.Order} entity. This class is used
@@ -21,19 +21,19 @@ import vn.tram.ticket.domain.enumeration.Status;
 public class OrderCriteria implements Serializable, Criteria {
 
     /**
-     * Class for filtering Status
+     * Class for filtering OrderStatus
      */
-    public static class StatusFilter extends Filter<Status> {
+    public static class OrderStatusFilter extends Filter<OrderStatus> {
 
-        public StatusFilter() {}
+        public OrderStatusFilter() {}
 
-        public StatusFilter(StatusFilter filter) {
+        public OrderStatusFilter(OrderStatusFilter filter) {
             super(filter);
         }
 
         @Override
-        public StatusFilter copy() {
-            return new StatusFilter(this);
+        public OrderStatusFilter copy() {
+            return new OrderStatusFilter(this);
         }
     }
 
@@ -41,7 +41,7 @@ public class OrderCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
-    private StatusFilter status;
+    private OrderStatusFilter status;
 
     private StringFilter transactionCode;
 
@@ -91,18 +91,18 @@ public class OrderCriteria implements Serializable, Criteria {
         this.id = id;
     }
 
-    public StatusFilter getStatus() {
+    public OrderStatusFilter getStatus() {
         return status;
     }
 
-    public StatusFilter status() {
+    public OrderStatusFilter status() {
         if (status == null) {
-            status = new StatusFilter();
+            status = new OrderStatusFilter();
         }
         return status;
     }
 
-    public void setStatus(StatusFilter status) {
+    public void setStatus(OrderStatusFilter status) {
         this.status = status;
     }
 

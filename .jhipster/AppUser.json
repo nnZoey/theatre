@@ -1,6 +1,6 @@
 {
   "applications": ["ticket"],
-  "changelogDate": "20230108053634",
+  "changelogDate": "20230108064520",
   "dto": "no",
   "embedded": false,
   "entityTableName": "app_user",
@@ -22,6 +22,12 @@
       "otherEntityName": "order",
       "otherEntityRelationshipName": "appUser",
       "relationshipName": "order",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "comment",
+      "otherEntityRelationshipName": "appUser",
+      "relationshipName": "comment",
       "relationshipType": "one-to-many"
     }
   ],

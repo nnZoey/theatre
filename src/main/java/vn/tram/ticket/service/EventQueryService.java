@@ -94,6 +94,9 @@ public class EventQueryService extends QueryService<Event> {
             if (criteria.getAgeRestriction() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getAgeRestriction(), Event_.ageRestriction));
             }
+            if (criteria.getEvent() != null) {
+                specification = specification.and(buildSpecification(criteria.getEvent(), Event_.event));
+            }
             if (criteria.getStartTime() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getStartTime(), Event_.startTime));
             }
@@ -103,19 +106,22 @@ public class EventQueryService extends QueryService<Event> {
             if (criteria.getDateBefore() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getDateBefore(), Event_.dateBefore));
             }
-            if (criteria.getEventTypeId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getEventTypeId(),
-                            root -> root.join(Event_.eventTypes, JoinType.LEFT).get(EventType_.id)
-                        )
-                    );
-            }
             if (criteria.getOrderId() != null) {
                 specification =
                     specification.and(
                         buildSpecification(criteria.getOrderId(), root -> root.join(Event_.orders, JoinType.LEFT).get(Order_.id))
+                    );
+            }
+            if (criteria.getCommentId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getCommentId(), root -> root.join(Event_.comments, JoinType.LEFT).get(Comment_.id))
+                    );
+            }
+            if (criteria.getEventTypeId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getEventTypeId(), root -> root.join(Event_.eventType, JoinType.LEFT).get(EventType_.id))
                     );
             }
             if (criteria.getStageId() != null) {

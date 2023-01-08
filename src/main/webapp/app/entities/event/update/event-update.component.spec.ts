@@ -9,6 +9,8 @@ import { of, Subject, from } from 'rxjs';
 import { EventFormService } from './event-form.service';
 import { EventService } from '../service/event.service';
 import { IEvent } from '../event.model';
+import { IEventType } from 'app/entities/event-type/event-type.model';
+import { EventTypeService } from 'app/entities/event-type/service/event-type.service';
 import { IStage } from 'app/entities/stage/stage.model';
 import { StageService } from 'app/entities/stage/service/stage.service';
 
@@ -20,6 +22,7 @@ describe('Event Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let eventFormService: EventFormService;
   let eventService: EventService;
+  let eventTypeService: EventTypeService;
   let stageService: StageService;
 
   beforeEach(() => {
@@ -43,12 +46,35 @@ describe('Event Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     eventFormService = TestBed.inject(EventFormService);
     eventService = TestBed.inject(EventService);
+    eventTypeService = TestBed.inject(EventTypeService);
     stageService = TestBed.inject(StageService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
+    it('Should call EventType query and add missing value', () => {
+      const event: IEvent = { id: 456 };
+      const eventType: IEventType = { id: 15975 };
+      event.eventType = eventType;
+
+      const eventTypeCollection: IEventType[] = [{ id: 37790 }];
+      jest.spyOn(eventTypeService, 'query').mockReturnValue(of(new HttpResponse({ body: eventTypeCollection })));
+      const additionalEventTypes = [eventType];
+      const expectedCollection: IEventType[] = [...additionalEventTypes, ...eventTypeCollection];
+      jest.spyOn(eventTypeService, 'addEventTypeToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ event });
+      comp.ngOnInit();
+
+      expect(eventTypeService.query).toHaveBeenCalled();
+      expect(eventTypeService.addEventTypeToCollectionIfMissing).toHaveBeenCalledWith(
+        eventTypeCollection,
+        ...additionalEventTypes.map(expect.objectContaining)
+      );
+      expect(comp.eventTypesSharedCollection).toEqual(expectedCollection);
+    });
+
     it('Should call Stage query and add missing value', () => {
       const event: IEvent = { id: 456 };
       const stage: IStage = { id: 34225 };
@@ -73,12 +99,15 @@ describe('Event Management Update Component', () => {
 
     it('Should update editForm', () => {
       const event: IEvent = { id: 456 };
+      const eventType: IEventType = { id: 82567 };
+      event.eventType = eventType;
       const stage: IStage = { id: 63344 };
       event.stage = stage;
 
       activatedRoute.data = of({ event });
       comp.ngOnInit();
 
+      expect(comp.eventTypesSharedCollection).toContain(eventType);
       expect(comp.stagesSharedCollection).toContain(stage);
       expect(comp.event).toEqual(event);
     });
@@ -153,6 +182,16 @@ describe('Event Management Update Component', () => {
   });
 
   describe('Compare relationships', () => {
+    describe('compareEventType', () => {
+      it('Should forward to eventTypeService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(eventTypeService, 'compareEventType');
+        comp.compareEventType(entity, entity2);
+        expect(eventTypeService.compareEventType).toHaveBeenCalledWith(entity, entity2);
+      });
+    });
+
     describe('compareStage', () => {
       it('Should forward to stageService', () => {
         const entity = { id: 123 };

@@ -4,14 +4,14 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
     <!--
-        Added the constraints for entity EventType.
+        Added the constraints for entity AppUser.
     -->
-    <changeSet id="20230108053734-2" author="jhipster">
+    <changeSet id="20230108064520-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="event_id"
-                                 baseTableName="event_type"
-                                 constraintName="fk_event_type__event_id"
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="app_user"
+                                 constraintName="fk_app_user__user_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="event"/>
+                                 referencedTableName="jhi_user"/>
     </changeSet>
 </databaseChangeLog>

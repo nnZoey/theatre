@@ -7,7 +7,7 @@
         <jhi-alert-error></jhi-alert-error>
 
         <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
-          <label class="form-label" for="field_id">Id</label>
+          <label class="form-label" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
@@ -38,6 +38,14 @@
             data-cy="ageRestriction"
             formControlName="ageRestriction"
           />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_event">Event</label>
+          <select class="form-control" name="event" formControlName="event" id="field_event" data-cy="event">
+            <option [ngValue]="null"></option>
+            <option *ngFor="let eventStatus of eventStatusValues" [value]="eventStatus">eventStatus</option>
+          </select>
         </div>
 
         <div class="row mb-3">
@@ -83,6 +91,21 @@
               placeholder="YYYY-MM-DD HH:mm"
             />
           </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_eventType">Event Type</label>
+          <select
+            class="form-control"
+            id="field_eventType"
+            data-cy="eventType"
+            name="eventType"
+            formControlName="eventType"
+            [compareWith]="compareEventType"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="eventTypeOption" *ngFor="let eventTypeOption of eventTypesSharedCollection">{{ eventTypeOption.id }}</option>
+          </select>
         </div>
 
         <div class="row mb-3">

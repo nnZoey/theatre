@@ -1,14 +1,10 @@
 {
   "applications": ["ticket"],
-  "changelogDate": "20230108053834",
+  "changelogDate": "20230108064522",
   "dto": "no",
   "embedded": false,
   "entityTableName": "event",
   "fields": [
-    {
-      "fieldName": "id",
-      "fieldType": "Long"
-    },
     {
       "fieldName": "name",
       "fieldType": "String"
@@ -20,6 +16,11 @@
     {
       "fieldName": "ageRestriction",
       "fieldType": "Long"
+    },
+    {
+      "fieldName": "event",
+      "fieldType": "EventStatus",
+      "fieldValues": "APPROVED,PENDING,REJECTED"
     },
     {
       "fieldName": "startTime",
@@ -41,16 +42,22 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "eventType",
-      "otherEntityRelationshipName": "event",
-      "relationshipName": "eventType",
-      "relationshipType": "one-to-many"
-    },
-    {
       "otherEntityName": "order",
       "otherEntityRelationshipName": "event",
       "relationshipName": "order",
       "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "comment",
+      "otherEntityRelationshipName": "event",
+      "relationshipName": "comment",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "eventType",
+      "otherEntityRelationshipName": "event",
+      "relationshipName": "eventType",
+      "relationshipType": "many-to-one"
     },
     {
       "otherEntityName": "stage",

@@ -2,6 +2,8 @@ package vn.tram.ticket.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -26,9 +28,10 @@ public class EventType implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "eventTypes", "orders", "stage" }, allowSetters = true)
-    private Event event;
+    @OneToMany(mappedBy = "eventType")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "orders", "comments", "eventType", "stage" }, allowSetters = true)
+    private Set<Event> events = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -58,16 +61,34 @@ public class EventType implements Serializable {
         this.name = name;
     }
 
-    public Event getEvent() {
-        return this.event;
+    public Set<Event> getEvents() {
+        return this.events;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
+    public void setEvents(Set<Event> events) {
+        if (this.events != null) {
+            this.events.forEach(i -> i.setEventType(null));
+        }
+        if (events != null) {
+            events.forEach(i -> i.setEventType(this));
+        }
+        this.events = events;
     }
 
-    public EventType event(Event event) {
-        this.setEvent(event);
+    public EventType events(Set<Event> events) {
+        this.setEvents(events);
+        return this;
+    }
+
+    public EventType addEvent(Event event) {
+        this.events.add(event);
+        event.setEventType(this);
+        return this;
+    }
+
+    public EventType removeEvent(Event event) {
+        this.events.remove(event);
+        event.setEventType(null);
         return this;
     }
 

@@ -11,7 +11,7 @@ import { IAppUser } from 'app/entities/app-user/app-user.model';
 import { AppUserService } from 'app/entities/app-user/service/app-user.service';
 import { IEvent } from 'app/entities/event/event.model';
 import { EventService } from 'app/entities/event/service/event.service';
-import { Status } from 'app/entities/enumerations/status.model';
+import { OrderStatus } from 'app/entities/enumerations/order-status.model';
 
 @Component({
   selector: 'jhi-order-update',
@@ -20,7 +20,7 @@ import { Status } from 'app/entities/enumerations/status.model';
 export class OrderUpdateComponent implements OnInit {
   isSaving = false;
   order: IOrder | null = null;
-  statusValues = Object.keys(Status);
+  orderStatusValues = Object.keys(OrderStatus);
 
   appUsersSharedCollection: IAppUser[] = [];
   eventsSharedCollection: IEvent[] = [];

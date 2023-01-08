@@ -6,7 +6,13 @@
     <!--
         Added the constraints for entity Event.
     -->
-    <changeSet id="20230108053834-2" author="jhipster">
+    <changeSet id="20230108064522-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="event_type_id"
+                                 baseTableName="event"
+                                 constraintName="fk_event__event_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="event_type"/>
 
         <addForeignKeyConstraint baseColumnNames="stage_id"
                                  baseTableName="event"

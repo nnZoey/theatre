@@ -1,14 +1,10 @@
 {
   "applications": ["ticket"],
-  "changelogDate": "20230108053934",
+  "changelogDate": "20230108064523",
   "dto": "no",
   "embedded": false,
   "entityTableName": "seat",
   "fields": [
-    {
-      "fieldName": "id",
-      "fieldType": "Long"
-    },
     {
       "fieldName": "row",
       "fieldType": "String"

@@ -1,14 +1,10 @@
 {
   "applications": ["ticket"],
-  "changelogDate": "20230108053734",
+  "changelogDate": "20230108064521",
   "dto": "no",
   "embedded": false,
   "entityTableName": "event_type",
   "fields": [
-    {
-      "fieldName": "id",
-      "fieldType": "Long"
-    },
     {
       "fieldName": "name",
       "fieldType": "String"
@@ -24,7 +20,7 @@
       "otherEntityName": "event",
       "otherEntityRelationshipName": "eventType",
       "relationshipName": "event",
-      "relationshipType": "many-to-one"
+      "relationshipType": "one-to-many"
     }
   ],
   "service": "serviceImpl"

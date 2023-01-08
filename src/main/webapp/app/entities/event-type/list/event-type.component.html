@@ -36,19 +36,13 @@
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
           <th scope="col" jhiSortBy="id">
             <div class="d-flex">
-              <span>Id</span>
+              <span>ID</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="name">
             <div class="d-flex">
               <span>Name</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="event.id">
-            <div class="d-flex">
-              <span>Event</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -61,13 +55,18 @@
             <a [routerLink]="['/event-type', eventType.id, 'view']">{{ eventType.id }}</a>
           </td>
           <td>{{ eventType.name }}</td>
-          <td>
-            <div *ngIf="eventType.event">
-              <a [routerLink]="['/event', eventType.event.id, 'view']">{{ eventType.event.id }}</a>
-            </div>
-          </td>
           <td class="text-end">
             <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/event']"
+                [queryParams]="{ 'filter[eventTypeId.in]': eventType.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">Show Event</span>
+              </button>
               <button
                 type="submit"
                 [routerLink]="['/event-type', eventType.id, 'view']"

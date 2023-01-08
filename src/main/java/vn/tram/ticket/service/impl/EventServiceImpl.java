@@ -54,6 +54,9 @@ public class EventServiceImpl implements EventService {
                 if (event.getAgeRestriction() != null) {
                     existingEvent.setAgeRestriction(event.getAgeRestriction());
                 }
+                if (event.getEvent() != null) {
+                    existingEvent.setEvent(event.getEvent());
+                }
                 if (event.getStartTime() != null) {
                     existingEvent.setStartTime(event.getStartTime());
                 }

@@ -11,20 +11,21 @@
     <property name="datetimeType" value="datetime" dbms="postgresql"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230108053634_added_entity_AppUser.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230108053734_added_entity_EventType.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230108053834_added_entity_Event.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230108053934_added_entity_Seat.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230108054034_added_entity_Stage.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230108054134_added_entity_Ticket.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230108054234_added_entity_Order.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230108064520_added_entity_AppUser.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230108064521_added_entity_EventType.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230108064522_added_entity_Event.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230108064523_added_entity_Seat.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230108064524_added_entity_Stage.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230108064525_added_entity_Ticket.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230108064526_added_entity_Order.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230108064527_added_entity_Comment.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
-    <include file="config/liquibase/changelog/20230108053634_added_entity_constraints_AppUser.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230108053734_added_entity_constraints_EventType.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230108053834_added_entity_constraints_Event.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230108053934_added_entity_constraints_Seat.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230108054134_added_entity_constraints_Ticket.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230108054234_added_entity_constraints_Order.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230108064520_added_entity_constraints_AppUser.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230108064522_added_entity_constraints_Event.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230108064523_added_entity_constraints_Seat.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230108064525_added_entity_constraints_Ticket.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230108064526_added_entity_constraints_Order.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230108064527_added_entity_constraints_Comment.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

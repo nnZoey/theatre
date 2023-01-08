@@ -97,6 +97,12 @@ public class AppUserQueryService extends QueryService<AppUser> {
                         buildSpecification(criteria.getOrderId(), root -> root.join(AppUser_.orders, JoinType.LEFT).get(Order_.id))
                     );
             }
+            if (criteria.getCommentId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getCommentId(), root -> root.join(AppUser_.comments, JoinType.LEFT).get(Comment_.id))
+                    );
+            }
         }
         return specification;
     }
