@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import dayjs from 'dayjs/esm';
 import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 import { IEvent, NewEvent } from '../event.model';
+import { EventStatus } from 'app/entities/enumerations/event-status.model';
 
 /**
  * A partial Type with required key is used as form input.
@@ -29,7 +30,7 @@ type EventFormRawValue = FormValueOf<IEvent>;
 
 type NewEventFormRawValue = FormValueOf<NewEvent>;
 
-type EventFormDefaults = Pick<NewEvent, 'id' | 'startTime' | 'endTime' | 'dateBefore'>;
+type EventFormDefaults = Pick<NewEvent, 'id' | 'status' | 'startTime' | 'endTime' | 'dateBefore'>;
 
 type EventFormGroupContent = {
   id: FormControl<EventFormRawValue['id'] | NewEvent['id']>;
@@ -92,6 +93,7 @@ export class EventFormService {
 
     return {
       id: null,
+      status: EventStatus.PENDING,
       startTime: currentTime,
       endTime: currentTime,
       dateBefore: currentTime,

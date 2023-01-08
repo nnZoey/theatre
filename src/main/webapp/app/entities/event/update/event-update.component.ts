@@ -40,6 +40,7 @@ export class EventUpdateComponent implements OnInit {
   compareStage = (o1: IStage | null, o2: IStage | null): boolean => this.stageService.compareStage(o1, o2);
 
   ngOnInit(): void {
+    console.warn(this.eventStatusValues);
     this.activatedRoute.data.subscribe(({ event }) => {
       this.event = event;
       if (event) {

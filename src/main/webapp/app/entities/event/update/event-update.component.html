@@ -40,11 +40,11 @@
           />
         </div>
 
-        <div class="row mb-3">
+        <div class="row mb-3" *jhiHasAnyAuthority="['ROLE_ADMIN']">
           <label class="form-label" for="field_status">Status</label>
           <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
             <option [ngValue]="null"></option>
-            <option *ngFor="let eventStatus of eventStatusValues" [value]="eventStatus">eventStatus</option>
+            <option *ngFor="let eventStatus of eventStatusValues" [value]="eventStatus">{{ eventStatus }}</option>
           </select>
         </div>
 
