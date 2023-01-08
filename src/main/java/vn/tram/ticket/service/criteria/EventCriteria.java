@@ -47,7 +47,7 @@ public class EventCriteria implements Serializable, Criteria {
 
     private LongFilter ageRestriction;
 
-    private EventStatusFilter event;
+    private EventStatusFilter status;
 
     private InstantFilter startTime;
 
@@ -72,7 +72,7 @@ public class EventCriteria implements Serializable, Criteria {
         this.name = other.name == null ? null : other.name.copy();
         this.description = other.description == null ? null : other.description.copy();
         this.ageRestriction = other.ageRestriction == null ? null : other.ageRestriction.copy();
-        this.event = other.event == null ? null : other.event.copy();
+        this.status = other.status == null ? null : other.status.copy();
         this.startTime = other.startTime == null ? null : other.startTime.copy();
         this.endTime = other.endTime == null ? null : other.endTime.copy();
         this.dateBefore = other.dateBefore == null ? null : other.dateBefore.copy();
@@ -148,19 +148,19 @@ public class EventCriteria implements Serializable, Criteria {
         this.ageRestriction = ageRestriction;
     }
 
-    public EventStatusFilter getEvent() {
-        return event;
+    public EventStatusFilter getStatus() {
+        return status;
     }
 
-    public EventStatusFilter event() {
-        if (event == null) {
-            event = new EventStatusFilter();
+    public EventStatusFilter status() {
+        if (status == null) {
+            status = new EventStatusFilter();
         }
-        return event;
+        return status;
     }
 
-    public void setEvent(EventStatusFilter event) {
-        this.event = event;
+    public void setStatus(EventStatusFilter status) {
+        this.status = status;
     }
 
     public InstantFilter getStartTime() {
@@ -290,7 +290,7 @@ public class EventCriteria implements Serializable, Criteria {
             Objects.equals(name, that.name) &&
             Objects.equals(description, that.description) &&
             Objects.equals(ageRestriction, that.ageRestriction) &&
-            Objects.equals(event, that.event) &&
+            Objects.equals(status, that.status) &&
             Objects.equals(startTime, that.startTime) &&
             Objects.equals(endTime, that.endTime) &&
             Objects.equals(dateBefore, that.dateBefore) &&
@@ -309,7 +309,7 @@ public class EventCriteria implements Serializable, Criteria {
             name,
             description,
             ageRestriction,
-            event,
+            status,
             startTime,
             endTime,
             dateBefore,
@@ -329,7 +329,7 @@ public class EventCriteria implements Serializable, Criteria {
             (name != null ? "name=" + name + ", " : "") +
             (description != null ? "description=" + description + ", " : "") +
             (ageRestriction != null ? "ageRestriction=" + ageRestriction + ", " : "") +
-            (event != null ? "event=" + event + ", " : "") +
+            (status != null ? "status=" + status + ", " : "") +
             (startTime != null ? "startTime=" + startTime + ", " : "") +
             (endTime != null ? "endTime=" + endTime + ", " : "") +
             (dateBefore != null ? "dateBefore=" + dateBefore + ", " : "") +

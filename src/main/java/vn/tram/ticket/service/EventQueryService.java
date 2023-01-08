@@ -94,8 +94,8 @@ public class EventQueryService extends QueryService<Event> {
             if (criteria.getAgeRestriction() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getAgeRestriction(), Event_.ageRestriction));
             }
-            if (criteria.getEvent() != null) {
-                specification = specification.and(buildSpecification(criteria.getEvent(), Event_.event));
+            if (criteria.getStatus() != null) {
+                specification = specification.and(buildSpecification(criteria.getStatus(), Event_.status));
             }
             if (criteria.getStartTime() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getStartTime(), Event_.startTime));

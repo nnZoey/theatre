@@ -37,8 +37,8 @@ public class Event implements Serializable {
     private Long ageRestriction;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "event")
-    private EventStatus event;
+    @Column(name = "status")
+    private EventStatus status;
 
     @Column(name = "start_time")
     private Instant startTime;
@@ -121,17 +121,17 @@ public class Event implements Serializable {
         this.ageRestriction = ageRestriction;
     }
 
-    public EventStatus getEvent() {
-        return this.event;
+    public EventStatus getStatus() {
+        return this.status;
     }
 
-    public Event event(EventStatus event) {
-        this.setEvent(event);
+    public Event status(EventStatus status) {
+        this.setStatus(status);
         return this;
     }
 
-    public void setEvent(EventStatus event) {
-        this.event = event;
+    public void setStatus(EventStatus status) {
+        this.status = status;
     }
 
     public Instant getStartTime() {
@@ -288,7 +288,7 @@ public class Event implements Serializable {
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             ", ageRestriction=" + getAgeRestriction() +
-            ", event='" + getEvent() + "'" +
+            ", status='" + getStatus() + "'" +
             ", startTime='" + getStartTime() + "'" +
             ", endTime='" + getEndTime() + "'" +
             ", dateBefore='" + getDateBefore() + "'" +

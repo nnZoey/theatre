@@ -9,7 +9,7 @@
     <!--
         Added the entity Event.
     -->
-    <changeSet id="20230108064522-1" author="jhipster">
+    <changeSet id="20230108065041-1" author="jhipster">
         <createTable tableName="event">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
@@ -23,7 +23,7 @@
             <column name="age_restriction" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="event" type="varchar(255)">
+            <column name="status" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="start_time" type="${datetimeType}">
@@ -58,7 +58,7 @@
           This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
           Spring Boot configuration key.
     -->
-    <changeSet id="20230108064522-1-data" author="jhipster" context="faker">
+    <changeSet id="20230108065041-1-data" author="jhipster" context="faker">
         <loadData
                   file="config/liquibase/fake-data/event.csv"
                   separator=";"
@@ -68,7 +68,7 @@
             <column name="name" type="string"/>
             <column name="description" type="string"/>
             <column name="age_restriction" type="numeric"/>
-            <column name="event" type="string"/>
+            <column name="status" type="string"/>
             <column name="start_time" type="date"/>
             <column name="end_time" type="date"/>
             <column name="date_before" type="date"/>

@@ -58,9 +58,9 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="event">
+          <th scope="col" jhiSortBy="status">
             <div class="d-flex">
-              <span>Event</span>
+              <span>Status</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -105,7 +105,7 @@
           <td>{{ event.name }}</td>
           <td>{{ event.description }}</td>
           <td>{{ event.ageRestriction }}</td>
-          <td>{{ event.event }}</td>
+          <td>{{ event.status }}</td>
           <td>{{ event.startTime | formatMediumDatetime }}</td>
           <td>{{ event.endTime | formatMediumDatetime }}</td>
           <td>{{ event.dateBefore | formatMediumDatetime }}</td>

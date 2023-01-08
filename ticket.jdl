@@ -67,7 +67,7 @@ entity Event {
     name String
     description String
     ageRestriction Long
-    event EventStatus
+    status EventStatus
     startTime Instant
     endTime Instant
     dateBefore Instant

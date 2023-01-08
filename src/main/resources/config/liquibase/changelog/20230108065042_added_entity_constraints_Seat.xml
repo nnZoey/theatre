@@ -6,7 +6,7 @@
     <!--
         Added the constraints for entity Seat.
     -->
-    <changeSet id="20230108064523-2" author="jhipster">
+    <changeSet id="20230108065042-2" author="jhipster">
 
         <addForeignKeyConstraint baseColumnNames="stage_id"
                                  baseTableName="seat"

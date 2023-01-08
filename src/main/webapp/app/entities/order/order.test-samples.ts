@@ -12,7 +12,7 @@ export const sampleWithPartialData: IOrder = {
   id: 34054,
   transactionCode: 'Texas Franc',
   isPaid: false,
-  issuedDate: dayjs('2023-01-07T10:58'),
+  issuedDate: dayjs('2023-01-07T11:03'),
 };
 
 export const sampleWithFullData: IOrder = {
@@ -20,7 +20,7 @@ export const sampleWithFullData: IOrder = {
   status: OrderStatus['CANCELLED'],
   transactionCode: 'Account Cambridgeshire',
   isPaid: true,
-  issuedDate: dayjs('2023-01-08T03:40'),
+  issuedDate: dayjs('2023-01-08T03:45'),
 };
 
 export const sampleWithNewData: NewOrder = {

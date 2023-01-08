@@ -8,7 +8,7 @@ export interface IEvent {
   name?: string | null;
   description?: string | null;
   ageRestriction?: number | null;
-  event?: EventStatus | null;
+  status?: EventStatus | null;
   startTime?: dayjs.Dayjs | null;
   endTime?: dayjs.Dayjs | null;
   dateBefore?: dayjs.Dayjs | null;

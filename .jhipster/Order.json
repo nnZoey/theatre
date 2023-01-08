@@ -1,6 +1,6 @@
 {
   "applications": ["ticket"],
-  "changelogDate": "20230108064526",
+  "changelogDate": "20230108065045",
   "dto": "no",
   "embedded": false,
   "entityTableName": "jhi_order",

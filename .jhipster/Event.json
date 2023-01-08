@@ -1,6 +1,6 @@
 {
   "applications": ["ticket"],
-  "changelogDate": "20230108064522",
+  "changelogDate": "20230108065041",
   "dto": "no",
   "embedded": false,
   "entityTableName": "event",
@@ -18,7 +18,7 @@
       "fieldType": "Long"
     },
     {
-      "fieldName": "event",
+      "fieldName": "status",
       "fieldType": "EventStatus",
       "fieldValues": "APPROVED,PENDING,REJECTED"
     },
