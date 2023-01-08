@@ -130,6 +130,12 @@ public class EventQueryService extends QueryService<Event> {
                         buildSpecification(criteria.getStageId(), root -> root.join(Event_.stage, JoinType.LEFT).get(Stage_.id))
                     );
             }
+            if (criteria.getCreatedById() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getCreatedById(), root -> root.join(Event_.createdBy, JoinType.LEFT).get(AppUser_.id))
+                    );
+            }
         }
         return specification;
     }

@@ -66,6 +66,12 @@ public class EventServiceImpl implements EventService {
                 if (event.getDateBefore() != null) {
                     existingEvent.setDateBefore(event.getDateBefore());
                 }
+                if (event.getImage() != null) {
+                    existingEvent.setImage(event.getImage());
+                }
+                if (event.getImageContentType() != null) {
+                    existingEvent.setImageContentType(event.getImageContentType());
+                }
 
                 return existingEvent;
             })

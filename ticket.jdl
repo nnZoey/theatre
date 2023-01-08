@@ -71,6 +71,7 @@ entity Event {
     startTime Instant
     endTime Instant
     dateBefore Instant
+    image ImageBlob
 }
 
 entity Seat {
@@ -119,6 +120,7 @@ relationship OneToMany {
     Stage to Event
     AppUser to Comment
     Event to Comment
+    AppUser to Event{createdBy}
 }
 
 

@@ -49,6 +49,13 @@ public class Event implements Serializable {
     @Column(name = "date_before")
     private Instant dateBefore;
 
+    @Lob
+    @Column(name = "image")
+    private byte[] image;
+
+    @Column(name = "image_content_type")
+    private String imageContentType;
+
     @OneToMany(mappedBy = "event")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "tickets", "appUser", "event" }, allowSetters = true)
@@ -66,6 +73,10 @@ public class Event implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = { "seats", "events" }, allowSetters = true)
     private Stage stage;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "user", "orders", "comments", "events" }, allowSetters = true)
+    private AppUser createdBy;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -173,6 +184,32 @@ public class Event implements Serializable {
         this.dateBefore = dateBefore;
     }
 
+    public byte[] getImage() {
+        return this.image;
+    }
+
+    public Event image(byte[] image) {
+        this.setImage(image);
+        return this;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public String getImageContentType() {
+        return this.imageContentType;
+    }
+
+    public Event imageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
+        return this;
+    }
+
+    public void setImageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
+    }
+
     public Set<Order> getOrders() {
         return this.orders;
     }
@@ -261,6 +298,19 @@ public class Event implements Serializable {
         return this;
     }
 
+    public AppUser getCreatedBy() {
+        return this.createdBy;
+    }
+
+    public void setCreatedBy(AppUser appUser) {
+        this.createdBy = appUser;
+    }
+
+    public Event createdBy(AppUser appUser) {
+        this.setCreatedBy(appUser);
+        return this;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -292,6 +342,8 @@ public class Event implements Serializable {
             ", startTime='" + getStartTime() + "'" +
             ", endTime='" + getEndTime() + "'" +
             ", dateBefore='" + getDateBefore() + "'" +
+            ", image='" + getImage() + "'" +
+            ", imageContentType='" + getImageContentType() + "'" +
             "}";
     }
 }

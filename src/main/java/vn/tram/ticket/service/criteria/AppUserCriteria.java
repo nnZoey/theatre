@@ -29,6 +29,8 @@ public class AppUserCriteria implements Serializable, Criteria {
 
     private LongFilter commentId;
 
+    private LongFilter eventId;
+
     private Boolean distinct;
 
     public AppUserCriteria() {}
@@ -38,6 +40,7 @@ public class AppUserCriteria implements Serializable, Criteria {
         this.userId = other.userId == null ? null : other.userId.copy();
         this.orderId = other.orderId == null ? null : other.orderId.copy();
         this.commentId = other.commentId == null ? null : other.commentId.copy();
+        this.eventId = other.eventId == null ? null : other.eventId.copy();
         this.distinct = other.distinct;
     }
 
@@ -106,6 +109,21 @@ public class AppUserCriteria implements Serializable, Criteria {
         this.commentId = commentId;
     }
 
+    public LongFilter getEventId() {
+        return eventId;
+    }
+
+    public LongFilter eventId() {
+        if (eventId == null) {
+            eventId = new LongFilter();
+        }
+        return eventId;
+    }
+
+    public void setEventId(LongFilter eventId) {
+        this.eventId = eventId;
+    }
+
     public Boolean getDistinct() {
         return distinct;
     }
@@ -128,13 +146,14 @@ public class AppUserCriteria implements Serializable, Criteria {
             Objects.equals(userId, that.userId) &&
             Objects.equals(orderId, that.orderId) &&
             Objects.equals(commentId, that.commentId) &&
+            Objects.equals(eventId, that.eventId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, orderId, commentId, distinct);
+        return Objects.hash(id, userId, orderId, commentId, eventId, distinct);
     }
 
     // prettier-ignore
@@ -145,6 +164,7 @@ public class AppUserCriteria implements Serializable, Criteria {
             (userId != null ? "userId=" + userId + ", " : "") +
             (orderId != null ? "orderId=" + orderId + ", " : "") +
             (commentId != null ? "commentId=" + commentId + ", " : "") +
+            (eventId != null ? "eventId=" + eventId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

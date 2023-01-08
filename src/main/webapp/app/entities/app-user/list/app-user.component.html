@@ -81,6 +81,16 @@
               </button>
               <button
                 type="submit"
+                [routerLink]="['/event']"
+                [queryParams]="{ 'filter[createdById.in]': appUser.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">Show Event</span>
+              </button>
+              <button
+                type="submit"
                 [routerLink]="['/app-user', appUser.id, 'view']"
                 class="btn btn-info btn-sm"
                 data-cy="entityDetailsButton"
