@@ -1,19 +1,15 @@
-<div class="d-flex justify-content-center">
-  <div class="col-8">
-    <div *ngIf="event">
-      <h2 data-cy="eventDetailsHeading"><span>Event</span></h2>
+<div class="fluid-container d-flex justify-content-center">
+  <div class="w-100" *ngIf="event">
+    <h2 data-cy="eventDetailsHeading"><span>Event</span></h2>
+    <hr />
 
-      <hr />
-
-      <jhi-alert-error></jhi-alert-error>
-
-      <jhi-alert></jhi-alert>
-
-      <dl class="row-md jh-entity-details">
-        <dt><span>ID</span></dt>
+    <dl class="row jh-entity-details">
+      <!-- <dt><span>ID</span></dt>
         <dd>
           <span>{{ event.id }}</span>
-        </dd>
+        </dd> -->
+
+      <div class="col-3 border-end">
         <dt><span>Name</span></dt>
         <dd>
           <span>{{ event.name }}</span>
@@ -26,10 +22,11 @@
         <dd>
           <span>{{ event.ageRestriction }}</span>
         </dd>
-        <dt><span>Status</span></dt>
-        <dd>
-          <span>{{ event.status }}</span>
-        </dd>
+        <!-- <dt><span>Status</span></dt>
+          <dd>
+            <span>{{ event.status }}</span>
+          </dd> -->
+
         <dt><span>Start Time</span></dt>
         <dd>
           <span>{{ event.startTime | formatMediumDatetime }}</span>
@@ -38,31 +35,92 @@
         <dd>
           <span>{{ event.endTime | formatMediumDatetime }}</span>
         </dd>
-        <dt><span>Date Before</span></dt>
-        <dd>
-          <span>{{ event.dateBefore | formatMediumDatetime }}</span>
-        </dd>
+        <!-- <dt><span>Date Before</span></dt>
+          <dd>
+            <span>{{ event.dateBefore | formatMediumDatetime }}</span>
+          </dd> -->
         <dt><span>Event Type</span></dt>
         <dd>
           <div *ngIf="event.eventType">
-            <a [routerLink]="['/event-type', event.eventType.id, 'view']">{{ event.eventType.id }}</a>
+            <a [routerLink]="['/event-type', event.eventType.id, 'view']">{{ event.eventType.name }}</a>
           </div>
         </dd>
         <dt><span>Stage</span></dt>
         <dd>
           <div *ngIf="event.stage">
-            <a [routerLink]="['/stage', event.stage.id, 'view']">{{ event.stage.id }}</a>
+            <a [routerLink]="['/stage', event.stage.id, 'view']">{{ event.stage.name }}</a>
           </div>
         </dd>
-      </dl>
 
-      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
-      </button>
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        </button>
 
-      <button type="button" [routerLink]="['/event', event.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
-      </button>
-    </div>
+        <button type="button" [routerLink]="['/event', event.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        </button>
+      </div>
+
+      <div class="col-6 border-end">
+        <div class="h3 text-center">Main stage</div>
+        <div class="d-flex flex-wrap justify-content-center">
+          <div class="row" *ngFor="let row of alignedSeats" class="m-1">
+            <div *ngFor="let seat of row" class="m-1">
+              <button
+                type="button"
+                [disabled]="isOccupied(seat) || paying"
+                [class]="'btn ' + getSeatClass(seat)"
+                (click)="selectSeat(seat)"
+              >
+                {{ seat.row }}{{ seat.col }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="h3 text-center">Selected seat</div>
+        <div class="jh-entity-details mb-3">
+          <dt>
+            <span>Seats({{ selectedSeats.length }}): </span>
+          </dt>
+          <dd>
+            <span>{{ getSelectedSeats().length !== 0 ? getSelectedSeats() : 'You have not selected any seat' }}</span>
+          </dd>
+
+          <dt>
+            <span>Total:</span>
+          </dt>
+          <dd>
+            <span>{{ getFormattedPrice() }}</span>
+          </dd>
+
+          <dt *ngIf="paying" class="mb-1">
+            <span>Transaction Code</span>
+          </dt>
+          <dd *ngIf="paying">
+            <input [(ngModel)]="transactionCode" type="text" class="form-control" />
+          </dd>
+        </div>
+        <button *ngIf="!paying" [disabled]="selectedSeats.length === 0" type="button" class="w-100 btn btn-success" (click)="pay()">
+          <span>Place order</span>
+        </button>
+
+        <div class="row" *ngIf="paying">
+          <div class="col-6">
+            <button type="button" class="w-100 btn btn-outline-danger" (click)="cancelPay()">
+              <span>Cancel</span>
+            </button>
+          </div>
+
+          <div class="col-6">
+            <button [disabled]="confirmingPay" type="button" class="w-100 btn btn-success" (click)="confirmPay()">
+              <span>Pay</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </dl>
   </div>
 </div>

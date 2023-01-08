@@ -1,6 +1,6 @@
 {
   "applications": ["ticket"],
-  "changelogDate": "20230108065046",
+  "changelogDate": "20230108083357",
   "dto": "no",
   "embedded": false,
   "entityTableName": "comment",

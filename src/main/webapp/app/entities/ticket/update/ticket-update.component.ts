@@ -20,7 +20,7 @@ export class TicketUpdateComponent implements OnInit {
   isSaving = false;
   ticket: ITicket | null = null;
 
-  seatsCollection: ISeat[] = [];
+  seatsSharedCollection: ISeat[] = [];
   ordersSharedCollection: IOrder[] = [];
 
   editForm: TicketFormGroup = this.ticketFormService.createTicketFormGroup();
@@ -85,16 +85,16 @@ export class TicketUpdateComponent implements OnInit {
     this.ticket = ticket;
     this.ticketFormService.resetForm(this.editForm, ticket);
 
-    this.seatsCollection = this.seatService.addSeatToCollectionIfMissing<ISeat>(this.seatsCollection, ticket.seat);
+    this.seatsSharedCollection = this.seatService.addSeatToCollectionIfMissing<ISeat>(this.seatsSharedCollection, ticket.seat);
     this.ordersSharedCollection = this.orderService.addOrderToCollectionIfMissing<IOrder>(this.ordersSharedCollection, ticket.order);
   }
 
   protected loadRelationshipsOptions(): void {
     this.seatService
-      .query({ 'ticketId.specified': 'false' })
+      .query()
       .pipe(map((res: HttpResponse<ISeat[]>) => res.body ?? []))
       .pipe(map((seats: ISeat[]) => this.seatService.addSeatToCollectionIfMissing<ISeat>(seats, this.ticket?.seat)))
-      .subscribe((seats: ISeat[]) => (this.seatsCollection = seats));
+      .subscribe((seats: ISeat[]) => (this.seatsSharedCollection = seats));
 
     this.orderService
       .query()

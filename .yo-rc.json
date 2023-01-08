@@ -27,7 +27,7 @@
     "jhipsterVersion": "7.9.3",
     "jwtSecretKey": "MWZjZmQ1MWY4OTg4NDRiMTQxYjI5ODU2Nzg0ODA5OTc2MGY5YjMyNTkxOTAzNzYyNDM0NzQxZDI2M2IwNWNkNzQ3MzY2NzE1MmE0NDM0ZDlkMmU2MGU0MThkNWRkYjZlMTBjOTJmOGVhMzIxNTBkMDJkZDhhZDY4MzQyNDA4MzE=",
     "languages": ["en"],
-    "lastLiquibaseTimestamp": 1673160646000,
+    "lastLiquibaseTimestamp": 1673166837000,
     "messageBroker": false,
     "microfrontend": false,
     "microfrontends": [],

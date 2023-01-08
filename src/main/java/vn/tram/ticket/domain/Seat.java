@@ -2,7 +2,17 @@ package vn.tram.ticket.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -32,9 +42,10 @@ public class Seat implements Serializable {
     @Column(name = "seat_class")
     private String seatClass;
 
+    @OneToMany(mappedBy = "seat")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "seat", "order" }, allowSetters = true)
-    @OneToOne(mappedBy = "seat")
-    private Ticket ticket;
+    private Set<Ticket> tickets = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "seats", "events" }, allowSetters = true)
@@ -94,22 +105,34 @@ public class Seat implements Serializable {
         this.seatClass = seatClass;
     }
 
-    public Ticket getTicket() {
-        return this.ticket;
+    public Set<Ticket> getTickets() {
+        return this.tickets;
     }
 
-    public void setTicket(Ticket ticket) {
-        if (this.ticket != null) {
-            this.ticket.setSeat(null);
+    public void setTickets(Set<Ticket> tickets) {
+        if (this.tickets != null) {
+            this.tickets.forEach(i -> i.setSeat(null));
         }
-        if (ticket != null) {
-            ticket.setSeat(this);
+        if (tickets != null) {
+            tickets.forEach(i -> i.setSeat(this));
         }
-        this.ticket = ticket;
+        this.tickets = tickets;
     }
 
-    public Seat ticket(Ticket ticket) {
-        this.setTicket(ticket);
+    public Seat tickets(Set<Ticket> tickets) {
+        this.setTickets(tickets);
+        return this;
+    }
+
+    public Seat addTicket(Ticket ticket) {
+        this.tickets.add(ticket);
+        ticket.setSeat(this);
+        return this;
+    }
+
+    public Seat removeTicket(Ticket ticket) {
+        this.tickets.remove(ticket);
+        ticket.setSeat(null);
         return this;
     }
 

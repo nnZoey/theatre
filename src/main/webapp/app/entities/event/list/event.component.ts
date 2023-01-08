@@ -1,20 +1,21 @@
-import { Component, OnInit } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
-import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
 
 import { IEvent } from '../event.model';
 
+import { ASC, DEFAULT_SORT_DATA, DESC, ITEM_DELETED_EVENT, SORT } from 'app/config/navigation.constants';
 import { ITEMS_PER_PAGE, PAGE_HEADER, TOTAL_COUNT_RESPONSE_HEADER } from 'app/config/pagination.constants';
-import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/config/navigation.constants';
-import { EntityArrayResponseType, EventService } from '../service/event.service';
+import { FilterOptions, IFilterOption, IFilterOptions } from 'app/shared/filter/filter.model';
 import { EventDeleteDialogComponent } from '../delete/event-delete-dialog.component';
-import { FilterOptions, IFilterOptions, IFilterOption } from 'app/shared/filter/filter.model';
+import { EntityArrayResponseType, EventService } from '../service/event.service';
 
 @Component({
   selector: 'jhi-event',
   templateUrl: './event.component.html',
+  styleUrls: ['./event.component.scss'],
 })
 export class EventComponent implements OnInit {
   events?: IEvent[];
