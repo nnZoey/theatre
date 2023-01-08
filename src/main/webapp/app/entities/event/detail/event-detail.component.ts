@@ -64,7 +64,7 @@ export class EventDetailComponent implements OnInit {
       }
 
       // get all orders then get all tickets then map to seats
-      this.orderService.query({ 'eventId.equals': event.id, size: 200 }).subscribe({
+      this.orderService.query({ 'eventId.equals': event.id, 'status.in': 'PENDING,PAID', size: 200 }).subscribe({
         next: res => {
           const orders = res.body ?? [];
           orders.forEach(order => {
