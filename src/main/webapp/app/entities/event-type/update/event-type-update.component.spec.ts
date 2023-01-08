@@ -9,8 +9,6 @@ import { of, Subject, from } from 'rxjs';
 import { EventTypeFormService } from './event-type-form.service';
 import { EventTypeService } from '../service/event-type.service';
 import { IEventType } from '../event-type.model';
-import { IEvent } from 'app/entities/event/event.model';
-import { EventService } from 'app/entities/event/service/event.service';
 
 import { EventTypeUpdateComponent } from './event-type-update.component';
 
@@ -20,7 +18,6 @@ describe('EventType Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let eventTypeFormService: EventTypeFormService;
   let eventTypeService: EventTypeService;
-  let eventService: EventService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -43,43 +40,17 @@ describe('EventType Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     eventTypeFormService = TestBed.inject(EventTypeFormService);
     eventTypeService = TestBed.inject(EventTypeService);
-    eventService = TestBed.inject(EventService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call Event query and add missing value', () => {
-      const eventType: IEventType = { id: 456 };
-      const event: IEvent = { id: 24481 };
-      eventType.event = event;
-
-      const eventCollection: IEvent[] = [{ id: 70440 }];
-      jest.spyOn(eventService, 'query').mockReturnValue(of(new HttpResponse({ body: eventCollection })));
-      const additionalEvents = [event];
-      const expectedCollection: IEvent[] = [...additionalEvents, ...eventCollection];
-      jest.spyOn(eventService, 'addEventToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ eventType });
-      comp.ngOnInit();
-
-      expect(eventService.query).toHaveBeenCalled();
-      expect(eventService.addEventToCollectionIfMissing).toHaveBeenCalledWith(
-        eventCollection,
-        ...additionalEvents.map(expect.objectContaining)
-      );
-      expect(comp.eventsSharedCollection).toEqual(expectedCollection);
-    });
-
     it('Should update editForm', () => {
       const eventType: IEventType = { id: 456 };
-      const event: IEvent = { id: 583 };
-      eventType.event = event;
 
       activatedRoute.data = of({ eventType });
       comp.ngOnInit();
 
-      expect(comp.eventsSharedCollection).toContain(event);
       expect(comp.eventType).toEqual(eventType);
     });
   });
@@ -149,18 +120,6 @@ describe('EventType Management Update Component', () => {
       expect(eventTypeService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('Compare relationships', () => {
-    describe('compareEvent', () => {
-      it('Should forward to eventService', () => {
-        const entity = { id: 123 };
-        const entity2 = { id: 456 };
-        jest.spyOn(eventService, 'compareEvent');
-        comp.compareEvent(entity, entity2);
-        expect(eventService.compareEvent).toHaveBeenCalledWith(entity, entity2);
-      });
     });
   });
 });

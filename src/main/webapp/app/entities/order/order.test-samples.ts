@@ -1,6 +1,6 @@
 import dayjs from 'dayjs/esm';
 
-import { Status } from 'app/entities/enumerations/status.model';
+import { OrderStatus } from 'app/entities/enumerations/order-status.model';
 
 import { IOrder, NewOrder } from './order.model';
 
@@ -12,15 +12,15 @@ export const sampleWithPartialData: IOrder = {
   id: 34054,
   transactionCode: 'Texas Franc',
   isPaid: false,
-  issuedDate: dayjs('2023-01-07T09:55'),
+  issuedDate: dayjs('2023-01-07T11:03'),
 };
 
 export const sampleWithFullData: IOrder = {
   id: 44858,
-  status: Status['PENDING'],
+  status: OrderStatus['CANCELLED'],
   transactionCode: 'Account Cambridgeshire',
   isPaid: true,
-  issuedDate: dayjs('2023-01-08T02:37'),
+  issuedDate: dayjs('2023-01-08T03:45'),
 };
 
 export const sampleWithNewData: NewOrder = {

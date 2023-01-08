@@ -8,7 +8,7 @@ import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import vn.tram.ticket.domain.enumeration.Status;
+import vn.tram.ticket.domain.enumeration.OrderStatus;
 
 /**
  * A Order.
@@ -29,7 +29,7 @@ public class Order implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private Status status;
+    private OrderStatus status;
 
     @Column(name = "transaction_code")
     private String transactionCode;
@@ -46,11 +46,11 @@ public class Order implements Serializable {
     private Set<Ticket> tickets = new HashSet<>();
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "user", "orders" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user", "orders", "comments" }, allowSetters = true)
     private AppUser appUser;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "eventTypes", "orders", "stage" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "orders", "comments", "eventType", "stage" }, allowSetters = true)
     private Event event;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -68,16 +68,16 @@ public class Order implements Serializable {
         this.id = id;
     }
 
-    public Status getStatus() {
+    public OrderStatus getStatus() {
         return this.status;
     }
 
-    public Order status(Status status) {
+    public Order status(OrderStatus status) {
         this.setStatus(status);
         return this;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
     }
 

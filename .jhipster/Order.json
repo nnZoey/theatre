@@ -1,18 +1,14 @@
 {
   "applications": ["ticket"],
-  "changelogDate": "20230108054234",
+  "changelogDate": "20230108065045",
   "dto": "no",
   "embedded": false,
   "entityTableName": "jhi_order",
   "fields": [
     {
-      "fieldName": "id",
-      "fieldType": "Long"
-    },
-    {
       "fieldName": "status",
-      "fieldType": "Status",
-      "fieldValues": "SUCCESS,FAIL,PENDING"
+      "fieldType": "OrderStatus",
+      "fieldValues": "PAID,PENDING,CANCELLED"
     },
     {
       "fieldName": "transactionCode",

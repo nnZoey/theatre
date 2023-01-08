@@ -1,1 +1,0 @@
-org.springframework.test.context.ContextCustomizerFactory = vn.tram.ticket.config.TestContainersSpringContextCustomizerFactory

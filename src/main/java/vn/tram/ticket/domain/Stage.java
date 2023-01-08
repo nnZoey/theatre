@@ -38,7 +38,7 @@ public class Stage implements Serializable {
 
     @OneToMany(mappedBy = "stage")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "eventTypes", "orders", "stage" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "orders", "comments", "eventType", "stage" }, allowSetters = true)
     private Set<Event> events = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

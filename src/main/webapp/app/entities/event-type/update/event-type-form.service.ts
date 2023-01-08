@@ -19,7 +19,6 @@ type EventTypeFormDefaults = Pick<NewEventType, 'id'>;
 type EventTypeFormGroupContent = {
   id: FormControl<IEventType['id'] | NewEventType['id']>;
   name: FormControl<IEventType['name']>;
-  event: FormControl<IEventType['event']>;
 };
 
 export type EventTypeFormGroup = FormGroup<EventTypeFormGroupContent>;
@@ -40,7 +39,6 @@ export class EventTypeFormService {
         }
       ),
       name: new FormControl(eventTypeRawValue.name),
-      event: new FormControl(eventTypeRawValue.event),
     });
   }
 

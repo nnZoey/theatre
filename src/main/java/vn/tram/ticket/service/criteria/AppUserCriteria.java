@@ -27,6 +27,8 @@ public class AppUserCriteria implements Serializable, Criteria {
 
     private LongFilter orderId;
 
+    private LongFilter commentId;
+
     private Boolean distinct;
 
     public AppUserCriteria() {}
@@ -35,6 +37,7 @@ public class AppUserCriteria implements Serializable, Criteria {
         this.id = other.id == null ? null : other.id.copy();
         this.userId = other.userId == null ? null : other.userId.copy();
         this.orderId = other.orderId == null ? null : other.orderId.copy();
+        this.commentId = other.commentId == null ? null : other.commentId.copy();
         this.distinct = other.distinct;
     }
 
@@ -88,6 +91,21 @@ public class AppUserCriteria implements Serializable, Criteria {
         this.orderId = orderId;
     }
 
+    public LongFilter getCommentId() {
+        return commentId;
+    }
+
+    public LongFilter commentId() {
+        if (commentId == null) {
+            commentId = new LongFilter();
+        }
+        return commentId;
+    }
+
+    public void setCommentId(LongFilter commentId) {
+        this.commentId = commentId;
+    }
+
     public Boolean getDistinct() {
         return distinct;
     }
@@ -109,13 +127,14 @@ public class AppUserCriteria implements Serializable, Criteria {
             Objects.equals(id, that.id) &&
             Objects.equals(userId, that.userId) &&
             Objects.equals(orderId, that.orderId) &&
+            Objects.equals(commentId, that.commentId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, orderId, distinct);
+        return Objects.hash(id, userId, orderId, commentId, distinct);
     }
 
     // prettier-ignore
@@ -125,6 +144,7 @@ public class AppUserCriteria implements Serializable, Criteria {
             (id != null ? "id=" + id + ", " : "") +
             (userId != null ? "userId=" + userId + ", " : "") +
             (orderId != null ? "orderId=" + orderId + ", " : "") +
+            (commentId != null ? "commentId=" + commentId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

@@ -55,50 +55,54 @@ enum Role {
 }
 
 entity EventType {
-	id Long
     name String
+}
+enum EventStatus {
+	APPROVED
+    PENDING
+    REJECTED
 }
 
 entity Event {
-	id Long
     name String
     description String
     ageRestriction Long
+    status EventStatus
     startTime Instant
     endTime Instant
     dateBefore Instant
 }
 
 entity Seat {
-	id Long
     row String
     col Long
     seatClass String
 }
 
 entity Stage {
-	id Long
     name String
     location String
 }
 
 entity Ticket {
-	id Long
 	price Long
 }
 
-enum Status {
-	SUCCESS
-    FAIL
+enum OrderStatus {
+	PAID
     PENDING
+    CANCELLED
 }
 
 entity Order {
-	id Long
-    status Status
+    status OrderStatus
     transactionCode String
     isPaid Boolean
     issuedDate Instant
+}
+
+entity Comment {
+    content String
 }
 
 relationship OneToOne {
@@ -107,13 +111,19 @@ relationship OneToOne {
 }
 
 relationship OneToMany {
-	Event to EventType
+	EventType to Event
     Stage to Seat
-    Order to Ticket
+
     AppUser to Order
-    Stage to Event
     Event to Order
+    Order to Ticket
+
+    Stage to Event
+
+    AppUser to Comment
+    Event to Comment
 }
+
 
 // Set service options to all except few
 service all with serviceImpl

@@ -21,7 +21,6 @@ describe('EventType Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             name: expect.any(Object),
-            event: expect.any(Object),
           })
         );
       });
@@ -33,7 +32,6 @@ describe('EventType Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             name: expect.any(Object),
-            event: expect.any(Object),
           })
         );
       });

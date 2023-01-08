@@ -48,10 +48,12 @@ public class CacheConfiguration {
             createCache(cm, vn.tram.ticket.domain.User.class.getName() + ".authorities");
             createCache(cm, vn.tram.ticket.domain.AppUser.class.getName());
             createCache(cm, vn.tram.ticket.domain.AppUser.class.getName() + ".orders");
+            createCache(cm, vn.tram.ticket.domain.AppUser.class.getName() + ".comments");
             createCache(cm, vn.tram.ticket.domain.EventType.class.getName());
+            createCache(cm, vn.tram.ticket.domain.EventType.class.getName() + ".events");
             createCache(cm, vn.tram.ticket.domain.Event.class.getName());
-            createCache(cm, vn.tram.ticket.domain.Event.class.getName() + ".eventTypes");
             createCache(cm, vn.tram.ticket.domain.Event.class.getName() + ".orders");
+            createCache(cm, vn.tram.ticket.domain.Event.class.getName() + ".comments");
             createCache(cm, vn.tram.ticket.domain.Seat.class.getName());
             createCache(cm, vn.tram.ticket.domain.Stage.class.getName());
             createCache(cm, vn.tram.ticket.domain.Stage.class.getName() + ".seats");
@@ -59,6 +61,7 @@ public class CacheConfiguration {
             createCache(cm, vn.tram.ticket.domain.Ticket.class.getName());
             createCache(cm, vn.tram.ticket.domain.Order.class.getName());
             createCache(cm, vn.tram.ticket.domain.Order.class.getName() + ".tickets");
+            createCache(cm, vn.tram.ticket.domain.Comment.class.getName());
             // jhipster-needle-caffeine-add-entry
         };
     }

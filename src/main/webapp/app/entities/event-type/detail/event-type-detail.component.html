@@ -10,19 +10,13 @@
       <jhi-alert></jhi-alert>
 
       <dl class="row-md jh-entity-details">
-        <dt><span>Id</span></dt>
+        <dt><span>ID</span></dt>
         <dd>
           <span>{{ eventType.id }}</span>
         </dd>
         <dt><span>Name</span></dt>
         <dd>
           <span>{{ eventType.name }}</span>
-        </dd>
-        <dt><span>Event</span></dt>
-        <dd>
-          <div *ngIf="eventType.event">
-            <a [routerLink]="['/event', eventType.event.id, 'view']">{{ eventType.event.id }}</a>
-          </div>
         </dd>
       </dl>
 

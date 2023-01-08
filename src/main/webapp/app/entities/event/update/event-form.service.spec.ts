@@ -23,9 +23,11 @@ describe('Event Form Service', () => {
             name: expect.any(Object),
             description: expect.any(Object),
             ageRestriction: expect.any(Object),
+            status: expect.any(Object),
             startTime: expect.any(Object),
             endTime: expect.any(Object),
             dateBefore: expect.any(Object),
+            eventType: expect.any(Object),
             stage: expect.any(Object),
           })
         );
@@ -40,9 +42,11 @@ describe('Event Form Service', () => {
             name: expect.any(Object),
             description: expect.any(Object),
             ageRestriction: expect.any(Object),
+            status: expect.any(Object),
             startTime: expect.any(Object),
             endTime: expect.any(Object),
             dateBefore: expect.any(Object),
+            eventType: expect.any(Object),
             stage: expect.any(Object),
           })
         );

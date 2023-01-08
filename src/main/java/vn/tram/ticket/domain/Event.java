@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import vn.tram.ticket.domain.enumeration.EventStatus;
 
 /**
  * A Event.
@@ -35,6 +36,10 @@ public class Event implements Serializable {
     @Column(name = "age_restriction")
     private Long ageRestriction;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private EventStatus status;
+
     @Column(name = "start_time")
     private Instant startTime;
 
@@ -46,13 +51,17 @@ public class Event implements Serializable {
 
     @OneToMany(mappedBy = "event")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "event" }, allowSetters = true)
-    private Set<EventType> eventTypes = new HashSet<>();
+    @JsonIgnoreProperties(value = { "tickets", "appUser", "event" }, allowSetters = true)
+    private Set<Order> orders = new HashSet<>();
 
     @OneToMany(mappedBy = "event")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "tickets", "appUser", "event" }, allowSetters = true)
-    private Set<Order> orders = new HashSet<>();
+    @JsonIgnoreProperties(value = { "appUser", "event" }, allowSetters = true)
+    private Set<Comment> comments = new HashSet<>();
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "events" }, allowSetters = true)
+    private EventType eventType;
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "seats", "events" }, allowSetters = true)
@@ -112,6 +121,19 @@ public class Event implements Serializable {
         this.ageRestriction = ageRestriction;
     }
 
+    public EventStatus getStatus() {
+        return this.status;
+    }
+
+    public Event status(EventStatus status) {
+        this.setStatus(status);
+        return this;
+    }
+
+    public void setStatus(EventStatus status) {
+        this.status = status;
+    }
+
     public Instant getStartTime() {
         return this.startTime;
     }
@@ -151,37 +173,6 @@ public class Event implements Serializable {
         this.dateBefore = dateBefore;
     }
 
-    public Set<EventType> getEventTypes() {
-        return this.eventTypes;
-    }
-
-    public void setEventTypes(Set<EventType> eventTypes) {
-        if (this.eventTypes != null) {
-            this.eventTypes.forEach(i -> i.setEvent(null));
-        }
-        if (eventTypes != null) {
-            eventTypes.forEach(i -> i.setEvent(this));
-        }
-        this.eventTypes = eventTypes;
-    }
-
-    public Event eventTypes(Set<EventType> eventTypes) {
-        this.setEventTypes(eventTypes);
-        return this;
-    }
-
-    public Event addEventType(EventType eventType) {
-        this.eventTypes.add(eventType);
-        eventType.setEvent(this);
-        return this;
-    }
-
-    public Event removeEventType(EventType eventType) {
-        this.eventTypes.remove(eventType);
-        eventType.setEvent(null);
-        return this;
-    }
-
     public Set<Order> getOrders() {
         return this.orders;
     }
@@ -210,6 +201,50 @@ public class Event implements Serializable {
     public Event removeOrder(Order order) {
         this.orders.remove(order);
         order.setEvent(null);
+        return this;
+    }
+
+    public Set<Comment> getComments() {
+        return this.comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        if (this.comments != null) {
+            this.comments.forEach(i -> i.setEvent(null));
+        }
+        if (comments != null) {
+            comments.forEach(i -> i.setEvent(this));
+        }
+        this.comments = comments;
+    }
+
+    public Event comments(Set<Comment> comments) {
+        this.setComments(comments);
+        return this;
+    }
+
+    public Event addComment(Comment comment) {
+        this.comments.add(comment);
+        comment.setEvent(this);
+        return this;
+    }
+
+    public Event removeComment(Comment comment) {
+        this.comments.remove(comment);
+        comment.setEvent(null);
+        return this;
+    }
+
+    public EventType getEventType() {
+        return this.eventType;
+    }
+
+    public void setEventType(EventType eventType) {
+        this.eventType = eventType;
+    }
+
+    public Event eventType(EventType eventType) {
+        this.setEventType(eventType);
         return this;
     }
 
@@ -253,6 +288,7 @@ public class Event implements Serializable {
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             ", ageRestriction=" + getAgeRestriction() +
+            ", status='" + getStatus() + "'" +
             ", startTime='" + getStartTime() + "'" +
             ", endTime='" + getEndTime() + "'" +
             ", dateBefore='" + getDateBefore() + "'" +
