@@ -4,11 +4,6 @@
       <h2 data-cy="orderDetailsHeading"><span>Order</span></h2>
 
       <hr />
-
-      <jhi-alert-error></jhi-alert-error>
-
-      <jhi-alert></jhi-alert>
-
       <dl class="row-md jh-entity-details">
         <dt><span>ID</span></dt>
         <dd>
@@ -16,40 +11,76 @@
         </dd>
         <dt><span>Status</span></dt>
         <dd>
-          <span>{{ order.status }}</span>
+          <span [class]="getBadgeClass(order)">{{ order.status }}</span>
         </dd>
         <dt><span>Transaction Code</span></dt>
         <dd>
           <span>{{ order.transactionCode }}</span>
         </dd>
-        <dt><span>Is Paid</span></dt>
+        <!-- <dt><span>Is Paid</span></dt>
         <dd>
           <span>{{ order.isPaid }}</span>
-        </dd>
+        </dd> -->
         <dt><span>Issued Date</span></dt>
         <dd>
           <span>{{ order.issuedDate | formatMediumDatetime }}</span>
         </dd>
-        <dt><span>App User</span></dt>
+        <dt><span>Buyer</span></dt>
         <dd>
           <div *ngIf="order.appUser">
-            <a [routerLink]="['/app-user', order.appUser.id, 'view']">{{ order.appUser.id }}</a>
+            <a [routerLink]="['/app-user', order.appUser.id, 'view']">{{ order.appUser.user?.login }}</a>
           </div>
         </dd>
         <dt><span>Event</span></dt>
         <dd>
           <div *ngIf="order.event">
-            <a [routerLink]="['/event', order.event.id, 'view']">{{ order.event.id }}</a>
+            <a [routerLink]="['/event', order.event.id, 'view']">{{ order.event.name }}</a>
           </div>
         </dd>
       </dl>
+
+      <table *ngIf="tickets.length > 0" class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr>
+            <th scope="col">
+              <div class="d-flex">
+                <span>Seat</span>
+                <fa-icon class="p-1"></fa-icon>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex">
+                <span>Price</span>
+                <fa-icon class="p-1"></fa-icon>
+              </div>
+            </th>
+
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ticket of tickets" data-cy="entityTable">
+            <td>
+              <div *ngIf="ticket.seat">{{ ticket.seat.row }}{{ ticket.seat.col }}</div>
+            </td>
+            <td>{{ ticket.price }}</td>
+            <td class="text-end"></td>
+          </tr>
+        </tbody>
+      </table>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
         <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
       </button>
 
-      <button type="button" [routerLink]="['/order', order.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      <button type="submit" (click)="approve(order)" class="btn btn-success" *ngIf="getApproveButtonRendered(order)">
+        <fa-icon icon="check"></fa-icon>
+        <span class="d-none d-md-inline">Approve</span>
+      </button>
+
+      <button type="submit" (click)="reject(order)" class="btn btn-danger" *ngIf="getRejectButtonRendered(order)">
+        <fa-icon icon="times"></fa-icon>
+        <span class="d-none d-md-inline">Reject</span>
       </button>
     </div>
   </div>
