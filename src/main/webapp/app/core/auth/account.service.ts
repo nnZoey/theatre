@@ -69,7 +69,7 @@ export class AccountService {
   }
 
   getCurrentAppUser(): Observable<IAppUser> {
-    return this.appUserService.query({ 'login.equals': this.userIdentity?.login }).pipe(map(res => res.body![0]));
+    return this.appUserService.query({ 'userId.equals': this.userIdentity?.id }).pipe(map(res => res.body![0]));
   }
 
   private fetch(): Observable<Account> {

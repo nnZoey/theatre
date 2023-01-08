@@ -7,24 +7,8 @@
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span>Refresh list</span>
       </button>
-
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-order"
-        [routerLink]="['/order/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span> Create a new Order </span>
-      </button>
     </div>
   </h2>
-
-  <jhi-alert-error></jhi-alert-error>
-
-  <jhi-alert></jhi-alert>
-
-  <jhi-filter [filters]="filters"></jhi-filter>
 
   <div class="alert alert-warning" id="no-result" *ngIf="orders?.length === 0">
     <span>No Orders found</span>
@@ -40,39 +24,40 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="status">
-            <div class="d-flex">
-              <span>Status</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
+
           <th scope="col" jhiSortBy="transactionCode">
             <div class="d-flex">
               <span>Transaction Code</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="isPaid">
+          <!-- <th scope="col" jhiSortBy="isPaid">
             <div class="d-flex">
               <span>Is Paid</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
-          </th>
+          </th> -->
           <th scope="col" jhiSortBy="issuedDate">
             <div class="d-flex">
               <span>Issued Date</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="appUser.id">
+          <th scope="col" jhiSortBy="appUser.id" *jhiHasAnyAuthority="['ROLE_ADMIN']">
             <div class="d-flex">
-              <span>App User</span>
+              <span>Buyer</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="event.id">
             <div class="d-flex">
               <span>Event</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="status">
+            <div class="d-flex">
+              <span>Status</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -84,23 +69,25 @@
           <td>
             <a [routerLink]="['/order', order.id, 'view']">{{ order.id }}</a>
           </td>
-          <td>{{ order.status }}</td>
           <td>{{ order.transactionCode }}</td>
-          <td>{{ order.isPaid }}</td>
+          <!-- <td>{{ order.isPaid }}</td> -->
           <td>{{ order.issuedDate | formatMediumDatetime }}</td>
-          <td>
+          <td *jhiHasAnyAuthority="['ROLE_ADMIN']">
             <div *ngIf="order.appUser">
               <a [routerLink]="['/app-user', order.appUser.id, 'view']">{{ order.appUser.id }}</a>
             </div>
           </td>
           <td>
             <div *ngIf="order.event">
-              <a [routerLink]="['/event', order.event.id, 'view']">{{ order.event.id }}</a>
+              <a [routerLink]="['/event', order.event.id, 'view']">{{ order.event.name }}</a>
             </div>
+          </td>
+          <td>
+            <span [class]="getBadgeClass(order)">{{ order.status }}</span>
           </td>
           <td class="text-end">
             <div class="btn-group">
-              <button
+              <!-- <button
                 type="submit"
                 [routerLink]="['/ticket']"
                 [queryParams]="{ 'filter[orderId.in]': order.id }"
@@ -109,20 +96,25 @@
               >
                 <fa-icon icon="eye"></fa-icon>
                 <span class="d-none d-md-inline">Show Ticket</span>
-              </button>
-              <button type="submit" [routerLink]="['/order', order.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+              </button> -->
+              <button type="submit" [routerLink]="['/order', order.id, 'view']" class="btn btn-info btn-sm">
                 <fa-icon icon="eye"></fa-icon>
                 <span class="d-none d-md-inline">View</span>
               </button>
 
-              <button type="submit" [routerLink]="['/order', order.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline">Edit</span>
+              <button type="submit" (click)="approve(order)" class="btn btn-success btn-sm" *ngIf="getApproveButtonRendered(order)">
+                <fa-icon icon="check"></fa-icon>
+                <span class="d-none d-md-inline">Approve</span>
               </button>
 
-              <button type="submit" (click)="delete(order)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+              <!-- <button type="submit" [routerLink]="['/order', order.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button> -->
+
+              <button type="submit" (click)="reject(order)" class="btn btn-danger btn-sm" *ngIf="getRejectButtonRendered(order)">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline">Delete</span>
+                <span class="d-none d-md-inline">Reject</span>
               </button>
             </div>
           </td>

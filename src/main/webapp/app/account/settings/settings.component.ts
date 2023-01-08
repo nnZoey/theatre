@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
+import { AccountService } from 'app/core/auth/account.service';
 
 const initialAccount: Account = {} as Account;
 
@@ -14,6 +14,7 @@ export class SettingsComponent implements OnInit {
   success = false;
 
   settingsForm = new FormGroup({
+    id: new FormControl(),
     firstName: new FormControl(initialAccount.firstName, {
       nonNullable: true,
       validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],

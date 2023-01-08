@@ -5,7 +5,17 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import vn.tram.ticket.domain.enumeration.OrderStatus;
@@ -46,7 +56,7 @@ public class Order implements Serializable {
     private Set<Ticket> tickets = new HashSet<>();
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "user", "orders", "comments", "events" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "orders", "comments", "events" }, allowSetters = true)
     private AppUser appUser;
 
     @ManyToOne
