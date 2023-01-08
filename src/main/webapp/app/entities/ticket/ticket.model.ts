@@ -1,10 +1,10 @@
-import { IOrder } from 'app/entities/order/order.model';
 import { ISeat } from 'app/entities/seat/seat.model';
+import { IOrder } from 'app/entities/order/order.model';
 
 export interface ITicket {
   id: number;
   price?: number | null;
-  seat?: ISeat | null;
+  seat?: Pick<ISeat, 'id'> | null;
   order?: Pick<IOrder, 'id'> | null;
 }
 

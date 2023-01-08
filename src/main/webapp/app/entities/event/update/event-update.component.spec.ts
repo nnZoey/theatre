@@ -13,6 +13,8 @@ import { IEventType } from 'app/entities/event-type/event-type.model';
 import { EventTypeService } from 'app/entities/event-type/service/event-type.service';
 import { IStage } from 'app/entities/stage/stage.model';
 import { StageService } from 'app/entities/stage/service/stage.service';
+import { IAppUser } from 'app/entities/app-user/app-user.model';
+import { AppUserService } from 'app/entities/app-user/service/app-user.service';
 
 import { EventUpdateComponent } from './event-update.component';
 
@@ -24,6 +26,7 @@ describe('Event Management Update Component', () => {
   let eventService: EventService;
   let eventTypeService: EventTypeService;
   let stageService: StageService;
+  let appUserService: AppUserService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -48,6 +51,7 @@ describe('Event Management Update Component', () => {
     eventService = TestBed.inject(EventService);
     eventTypeService = TestBed.inject(EventTypeService);
     stageService = TestBed.inject(StageService);
+    appUserService = TestBed.inject(AppUserService);
 
     comp = fixture.componentInstance;
   });
@@ -97,18 +101,43 @@ describe('Event Management Update Component', () => {
       expect(comp.stagesSharedCollection).toEqual(expectedCollection);
     });
 
+    it('Should call AppUser query and add missing value', () => {
+      const event: IEvent = { id: 456 };
+      const createdBy: IAppUser = { id: 74968 };
+      event.createdBy = createdBy;
+
+      const appUserCollection: IAppUser[] = [{ id: 24172 }];
+      jest.spyOn(appUserService, 'query').mockReturnValue(of(new HttpResponse({ body: appUserCollection })));
+      const additionalAppUsers = [createdBy];
+      const expectedCollection: IAppUser[] = [...additionalAppUsers, ...appUserCollection];
+      jest.spyOn(appUserService, 'addAppUserToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ event });
+      comp.ngOnInit();
+
+      expect(appUserService.query).toHaveBeenCalled();
+      expect(appUserService.addAppUserToCollectionIfMissing).toHaveBeenCalledWith(
+        appUserCollection,
+        ...additionalAppUsers.map(expect.objectContaining)
+      );
+      expect(comp.appUsersSharedCollection).toEqual(expectedCollection);
+    });
+
     it('Should update editForm', () => {
       const event: IEvent = { id: 456 };
       const eventType: IEventType = { id: 82567 };
       event.eventType = eventType;
       const stage: IStage = { id: 63344 };
       event.stage = stage;
+      const createdBy: IAppUser = { id: 27729 };
+      event.createdBy = createdBy;
 
       activatedRoute.data = of({ event });
       comp.ngOnInit();
 
       expect(comp.eventTypesSharedCollection).toContain(eventType);
       expect(comp.stagesSharedCollection).toContain(stage);
+      expect(comp.appUsersSharedCollection).toContain(createdBy);
       expect(comp.event).toEqual(event);
     });
   });
@@ -199,6 +228,16 @@ describe('Event Management Update Component', () => {
         jest.spyOn(stageService, 'compareStage');
         comp.compareStage(entity, entity2);
         expect(stageService.compareStage).toHaveBeenCalledWith(entity, entity2);
+      });
+    });
+
+    describe('compareAppUser', () => {
+      it('Should forward to appUserService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(appUserService, 'compareAppUser');
+        comp.compareAppUser(entity, entity2);
+        expect(appUserService.compareAppUser).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

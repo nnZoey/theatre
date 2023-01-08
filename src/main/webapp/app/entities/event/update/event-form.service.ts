@@ -40,8 +40,11 @@ type EventFormGroupContent = {
   startTime: FormControl<EventFormRawValue['startTime']>;
   endTime: FormControl<EventFormRawValue['endTime']>;
   dateBefore: FormControl<EventFormRawValue['dateBefore']>;
+  image: FormControl<EventFormRawValue['image']>;
+  imageContentType: FormControl<EventFormRawValue['imageContentType']>;
   eventType: FormControl<EventFormRawValue['eventType']>;
   stage: FormControl<EventFormRawValue['stage']>;
+  createdBy: FormControl<EventFormRawValue['createdBy']>;
 };
 
 export type EventFormGroup = FormGroup<EventFormGroupContent>;
@@ -68,8 +71,11 @@ export class EventFormService {
       startTime: new FormControl(eventRawValue.startTime),
       endTime: new FormControl(eventRawValue.endTime),
       dateBefore: new FormControl(eventRawValue.dateBefore),
+      image: new FormControl(eventRawValue.image),
+      imageContentType: new FormControl(eventRawValue.imageContentType),
       eventType: new FormControl(eventRawValue.eventType),
       stage: new FormControl(eventRawValue.stage),
+      createdBy: new FormControl(eventRawValue.createdBy),
     });
   }
 

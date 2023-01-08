@@ -30,7 +30,7 @@ public class EventType implements Serializable {
 
     @OneToMany(mappedBy = "eventType")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "orders", "comments", "eventType", "stage" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "orders", "comments", "eventType", "stage", "createdBy" }, allowSetters = true)
     private Set<Event> events = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

@@ -1,6 +1,6 @@
 {
   "applications": ["ticket"],
-  "changelogDate": "20230108083352",
+  "changelogDate": "20230108142514",
   "dto": "no",
   "embedded": false,
   "entityTableName": "event",
@@ -33,6 +33,11 @@
     {
       "fieldName": "dateBefore",
       "fieldType": "Instant"
+    },
+    {
+      "fieldName": "image",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
     }
   ],
   "fluentMethods": true,
@@ -63,6 +68,12 @@
       "otherEntityName": "stage",
       "otherEntityRelationshipName": "event",
       "relationshipName": "stage",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "appUser",
+      "otherEntityRelationshipName": "event",
+      "relationshipName": "createdBy",
       "relationshipType": "many-to-one"
     }
   ],
