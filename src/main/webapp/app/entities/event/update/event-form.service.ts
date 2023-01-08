@@ -36,9 +36,11 @@ type EventFormGroupContent = {
   name: FormControl<EventFormRawValue['name']>;
   description: FormControl<EventFormRawValue['description']>;
   ageRestriction: FormControl<EventFormRawValue['ageRestriction']>;
+  status: FormControl<EventFormRawValue['status']>;
   startTime: FormControl<EventFormRawValue['startTime']>;
   endTime: FormControl<EventFormRawValue['endTime']>;
   dateBefore: FormControl<EventFormRawValue['dateBefore']>;
+  eventType: FormControl<EventFormRawValue['eventType']>;
   stage: FormControl<EventFormRawValue['stage']>;
 };
 
@@ -62,9 +64,11 @@ export class EventFormService {
       name: new FormControl(eventRawValue.name),
       description: new FormControl(eventRawValue.description),
       ageRestriction: new FormControl(eventRawValue.ageRestriction),
+      status: new FormControl(eventRawValue.status),
       startTime: new FormControl(eventRawValue.startTime),
       endTime: new FormControl(eventRawValue.endTime),
       dateBefore: new FormControl(eventRawValue.dateBefore),
+      eventType: new FormControl(eventRawValue.eventType),
       stage: new FormControl(eventRawValue.stage),
     });
   }

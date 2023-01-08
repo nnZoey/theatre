@@ -34,6 +34,11 @@ public class AppUser implements Serializable {
     @JsonIgnoreProperties(value = { "tickets", "appUser", "event" }, allowSetters = true)
     private Set<Order> orders = new HashSet<>();
 
+    @OneToMany(mappedBy = "appUser")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "appUser", "event" }, allowSetters = true)
+    private Set<Comment> comments = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -90,6 +95,37 @@ public class AppUser implements Serializable {
     public AppUser removeOrder(Order order) {
         this.orders.remove(order);
         order.setAppUser(null);
+        return this;
+    }
+
+    public Set<Comment> getComments() {
+        return this.comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        if (this.comments != null) {
+            this.comments.forEach(i -> i.setAppUser(null));
+        }
+        if (comments != null) {
+            comments.forEach(i -> i.setAppUser(this));
+        }
+        this.comments = comments;
+    }
+
+    public AppUser comments(Set<Comment> comments) {
+        this.setComments(comments);
+        return this;
+    }
+
+    public AppUser addComment(Comment comment) {
+        this.comments.add(comment);
+        comment.setAppUser(this);
+        return this;
+    }
+
+    public AppUser removeComment(Comment comment) {
+        this.comments.remove(comment);
+        comment.setAppUser(null);
         return this;
     }
 

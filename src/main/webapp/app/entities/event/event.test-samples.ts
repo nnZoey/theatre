@@ -1,5 +1,7 @@
 import dayjs from 'dayjs/esm';
 
+import { EventStatus } from 'app/entities/enumerations/event-status.model';
+
 import { IEvent, NewEvent } from './event.model';
 
 export const sampleWithRequiredData: IEvent = {
@@ -7,19 +9,21 @@ export const sampleWithRequiredData: IEvent = {
 };
 
 export const sampleWithPartialData: IEvent = {
-  id: 50740,
-  ageRestriction: 13579,
-  endTime: dayjs('2023-01-08T05:00'),
+  id: 13579,
+  ageRestriction: 2671,
+  startTime: dayjs('2023-01-08T03:24'),
+  dateBefore: dayjs('2023-01-08T01:54'),
 };
 
 export const sampleWithFullData: IEvent = {
-  id: 14349,
-  name: 'Home',
-  description: 'transform one-to-one',
-  ageRestriction: 78603,
-  startTime: dayjs('2023-01-07T13:15'),
-  endTime: dayjs('2023-01-08T02:16'),
-  dateBefore: dayjs('2023-01-07T15:21'),
+  id: 852,
+  name: 'pixel',
+  description: 'withdrawal',
+  ageRestriction: 20747,
+  status: EventStatus['REJECTED'],
+  startTime: dayjs('2023-01-07T14:27'),
+  endTime: dayjs('2023-01-08T03:28'),
+  dateBefore: dayjs('2023-01-07T16:33'),
 };
 
 export const sampleWithNewData: NewEvent = {

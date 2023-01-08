@@ -10,7 +10,7 @@
       <jhi-alert></jhi-alert>
 
       <dl class="row-md jh-entity-details">
-        <dt><span>Id</span></dt>
+        <dt><span>ID</span></dt>
         <dd>
           <span>{{ event.id }}</span>
         </dd>
@@ -26,6 +26,10 @@
         <dd>
           <span>{{ event.ageRestriction }}</span>
         </dd>
+        <dt><span>Status</span></dt>
+        <dd>
+          <span>{{ event.status }}</span>
+        </dd>
         <dt><span>Start Time</span></dt>
         <dd>
           <span>{{ event.startTime | formatMediumDatetime }}</span>
@@ -37,6 +41,12 @@
         <dt><span>Date Before</span></dt>
         <dd>
           <span>{{ event.dateBefore | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Event Type</span></dt>
+        <dd>
+          <div *ngIf="event.eventType">
+            <a [routerLink]="['/event-type', event.eventType.id, 'view']">{{ event.eventType.id }}</a>
+          </div>
         </dd>
         <dt><span>Stage</span></dt>
         <dd>

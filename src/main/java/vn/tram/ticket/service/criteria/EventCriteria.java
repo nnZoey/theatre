@@ -5,6 +5,7 @@ import java.util.Objects;
 import org.springdoc.api.annotations.ParameterObject;
 import tech.jhipster.service.Criteria;
 import tech.jhipster.service.filter.*;
+import vn.tram.ticket.domain.enumeration.EventStatus;
 
 /**
  * Criteria class for the {@link vn.tram.ticket.domain.Event} entity. This class is used
@@ -19,6 +20,23 @@ import tech.jhipster.service.filter.*;
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class EventCriteria implements Serializable, Criteria {
 
+    /**
+     * Class for filtering EventStatus
+     */
+    public static class EventStatusFilter extends Filter<EventStatus> {
+
+        public EventStatusFilter() {}
+
+        public EventStatusFilter(EventStatusFilter filter) {
+            super(filter);
+        }
+
+        @Override
+        public EventStatusFilter copy() {
+            return new EventStatusFilter(this);
+        }
+    }
+
     private static final long serialVersionUID = 1L;
 
     private LongFilter id;
@@ -29,15 +47,19 @@ public class EventCriteria implements Serializable, Criteria {
 
     private LongFilter ageRestriction;
 
+    private EventStatusFilter status;
+
     private InstantFilter startTime;
 
     private InstantFilter endTime;
 
     private InstantFilter dateBefore;
 
-    private LongFilter eventTypeId;
-
     private LongFilter orderId;
+
+    private LongFilter commentId;
+
+    private LongFilter eventTypeId;
 
     private LongFilter stageId;
 
@@ -50,11 +72,13 @@ public class EventCriteria implements Serializable, Criteria {
         this.name = other.name == null ? null : other.name.copy();
         this.description = other.description == null ? null : other.description.copy();
         this.ageRestriction = other.ageRestriction == null ? null : other.ageRestriction.copy();
+        this.status = other.status == null ? null : other.status.copy();
         this.startTime = other.startTime == null ? null : other.startTime.copy();
         this.endTime = other.endTime == null ? null : other.endTime.copy();
         this.dateBefore = other.dateBefore == null ? null : other.dateBefore.copy();
-        this.eventTypeId = other.eventTypeId == null ? null : other.eventTypeId.copy();
         this.orderId = other.orderId == null ? null : other.orderId.copy();
+        this.commentId = other.commentId == null ? null : other.commentId.copy();
+        this.eventTypeId = other.eventTypeId == null ? null : other.eventTypeId.copy();
         this.stageId = other.stageId == null ? null : other.stageId.copy();
         this.distinct = other.distinct;
     }
@@ -124,6 +148,21 @@ public class EventCriteria implements Serializable, Criteria {
         this.ageRestriction = ageRestriction;
     }
 
+    public EventStatusFilter getStatus() {
+        return status;
+    }
+
+    public EventStatusFilter status() {
+        if (status == null) {
+            status = new EventStatusFilter();
+        }
+        return status;
+    }
+
+    public void setStatus(EventStatusFilter status) {
+        this.status = status;
+    }
+
     public InstantFilter getStartTime() {
         return startTime;
     }
@@ -169,21 +208,6 @@ public class EventCriteria implements Serializable, Criteria {
         this.dateBefore = dateBefore;
     }
 
-    public LongFilter getEventTypeId() {
-        return eventTypeId;
-    }
-
-    public LongFilter eventTypeId() {
-        if (eventTypeId == null) {
-            eventTypeId = new LongFilter();
-        }
-        return eventTypeId;
-    }
-
-    public void setEventTypeId(LongFilter eventTypeId) {
-        this.eventTypeId = eventTypeId;
-    }
-
     public LongFilter getOrderId() {
         return orderId;
     }
@@ -197,6 +221,36 @@ public class EventCriteria implements Serializable, Criteria {
 
     public void setOrderId(LongFilter orderId) {
         this.orderId = orderId;
+    }
+
+    public LongFilter getCommentId() {
+        return commentId;
+    }
+
+    public LongFilter commentId() {
+        if (commentId == null) {
+            commentId = new LongFilter();
+        }
+        return commentId;
+    }
+
+    public void setCommentId(LongFilter commentId) {
+        this.commentId = commentId;
+    }
+
+    public LongFilter getEventTypeId() {
+        return eventTypeId;
+    }
+
+    public LongFilter eventTypeId() {
+        if (eventTypeId == null) {
+            eventTypeId = new LongFilter();
+        }
+        return eventTypeId;
+    }
+
+    public void setEventTypeId(LongFilter eventTypeId) {
+        this.eventTypeId = eventTypeId;
     }
 
     public LongFilter getStageId() {
@@ -236,11 +290,13 @@ public class EventCriteria implements Serializable, Criteria {
             Objects.equals(name, that.name) &&
             Objects.equals(description, that.description) &&
             Objects.equals(ageRestriction, that.ageRestriction) &&
+            Objects.equals(status, that.status) &&
             Objects.equals(startTime, that.startTime) &&
             Objects.equals(endTime, that.endTime) &&
             Objects.equals(dateBefore, that.dateBefore) &&
-            Objects.equals(eventTypeId, that.eventTypeId) &&
             Objects.equals(orderId, that.orderId) &&
+            Objects.equals(commentId, that.commentId) &&
+            Objects.equals(eventTypeId, that.eventTypeId) &&
             Objects.equals(stageId, that.stageId) &&
             Objects.equals(distinct, that.distinct)
         );
@@ -248,7 +304,21 @@ public class EventCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, ageRestriction, startTime, endTime, dateBefore, eventTypeId, orderId, stageId, distinct);
+        return Objects.hash(
+            id,
+            name,
+            description,
+            ageRestriction,
+            status,
+            startTime,
+            endTime,
+            dateBefore,
+            orderId,
+            commentId,
+            eventTypeId,
+            stageId,
+            distinct
+        );
     }
 
     // prettier-ignore
@@ -259,11 +329,13 @@ public class EventCriteria implements Serializable, Criteria {
             (name != null ? "name=" + name + ", " : "") +
             (description != null ? "description=" + description + ", " : "") +
             (ageRestriction != null ? "ageRestriction=" + ageRestriction + ", " : "") +
+            (status != null ? "status=" + status + ", " : "") +
             (startTime != null ? "startTime=" + startTime + ", " : "") +
             (endTime != null ? "endTime=" + endTime + ", " : "") +
             (dateBefore != null ? "dateBefore=" + dateBefore + ", " : "") +
-            (eventTypeId != null ? "eventTypeId=" + eventTypeId + ", " : "") +
             (orderId != null ? "orderId=" + orderId + ", " : "") +
+            (commentId != null ? "commentId=" + commentId + ", " : "") +
+            (eventTypeId != null ? "eventTypeId=" + eventTypeId + ", " : "") +
             (stageId != null ? "stageId=" + stageId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";

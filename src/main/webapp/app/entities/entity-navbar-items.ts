@@ -27,4 +27,8 @@ export const EntityNavbarItems = [
     name: 'Order',
     route: 'order',
   },
+  {
+    name: 'Comment',
+    route: 'comment',
+  },
 ];

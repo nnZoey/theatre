@@ -39,6 +39,11 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'Orders' },
         loadChildren: () => import('./order/order.module').then(m => m.OrderModule),
       },
+      {
+        path: 'comment',
+        data: { pageTitle: 'Comments' },
+        loadChildren: () => import('./comment/comment.module').then(m => m.CommentModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],
