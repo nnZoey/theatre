@@ -106,20 +106,17 @@ entity Comment {
 }
 
 relationship OneToOne {
-    Ticket to Seat
     AppUser to User
 }
 
 relationship OneToMany {
 	EventType to Event
     Stage to Seat
-
+    Seat to Ticket
     AppUser to Order
     Event to Order
     Order to Ticket
-
     Stage to Event
-
     AppUser to Comment
     Event to Comment
 }

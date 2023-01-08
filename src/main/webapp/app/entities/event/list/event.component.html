@@ -30,136 +30,17 @@
     <span>No Events found</span>
   </div>
 
-  <div class="table-responsive table-entities" id="entities" *ngIf="events && events.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
-      <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-          <th scope="col" jhiSortBy="id">
-            <div class="d-flex">
-              <span>ID</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="name">
-            <div class="d-flex">
-              <span>Name</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="description">
-            <div class="d-flex">
-              <span>Description</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="ageRestriction">
-            <div class="d-flex">
-              <span>Age Restriction</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="status">
-            <div class="d-flex">
-              <span>Status</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="startTime">
-            <div class="d-flex">
-              <span>Start Time</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="endTime">
-            <div class="d-flex">
-              <span>End Time</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="dateBefore">
-            <div class="d-flex">
-              <span>Date Before</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="eventType.id">
-            <div class="d-flex">
-              <span>Event Type</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="stage.id">
-            <div class="d-flex">
-              <span>Stage</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let event of events; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/event', event.id, 'view']">{{ event.id }}</a>
-          </td>
-          <td>{{ event.name }}</td>
-          <td>{{ event.description }}</td>
-          <td>{{ event.ageRestriction }}</td>
-          <td>{{ event.status }}</td>
-          <td>{{ event.startTime | formatMediumDatetime }}</td>
-          <td>{{ event.endTime | formatMediumDatetime }}</td>
-          <td>{{ event.dateBefore | formatMediumDatetime }}</td>
-          <td>
-            <div *ngIf="event.eventType">
-              <a [routerLink]="['/event-type', event.eventType.id, 'view']">{{ event.eventType.id }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="event.stage">
-              <a [routerLink]="['/stage', event.stage.id, 'view']">{{ event.stage.id }}</a>
-            </div>
-          </td>
-          <td class="text-end">
-            <div class="btn-group">
-              <button
-                type="submit"
-                [routerLink]="['/order']"
-                [queryParams]="{ 'filter[eventId.in]': event.id }"
-                class="btn btn-info btn-sm"
-                data-cy="filterOtherEntityButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline">Show Order</span>
-              </button>
-              <button
-                type="submit"
-                [routerLink]="['/comment']"
-                [queryParams]="{ 'filter[eventId.in]': event.id }"
-                class="btn btn-info btn-sm"
-                data-cy="filterOtherEntityButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline">Show Comment</span>
-              </button>
-              <button type="submit" [routerLink]="['/event', event.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline">View</span>
-              </button>
-
-              <button type="submit" [routerLink]="['/event', event.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline">Edit</span>
-              </button>
-
-              <button type="submit" (click)="delete(event)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline">Delete</span>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="row" id="entities" *ngIf="events && events.length > 0">
+    <div *ngFor="let event of events" class="col-12 col-md-3 mb-3">
+      <div class="card">
+        <img class="card-img-top" [src]="'https://picsum.photos/1024?random=' + event.id" alt="Card image cap" />
+        <div class="card-body">
+          <h5 class="card-title">{{ event.name }}</h5>
+          <p class="card-text">{{ event.description }}</p>
+          <a [routerLink]="['/event', event.id, 'view']" class="btn btn-primary">Book now</a>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div *ngIf="events && events.length > 0">

@@ -11,8 +11,8 @@ export const sampleWithRequiredData: IEvent = {
 export const sampleWithPartialData: IEvent = {
   id: 13579,
   ageRestriction: 2671,
-  startTime: dayjs('2023-01-08T03:24'),
-  dateBefore: dayjs('2023-01-08T01:54'),
+  startTime: dayjs('2023-01-08T05:07'),
+  dateBefore: dayjs('2023-01-08T03:38'),
 };
 
 export const sampleWithFullData: IEvent = {
@@ -21,9 +21,9 @@ export const sampleWithFullData: IEvent = {
   description: 'withdrawal',
   ageRestriction: 20747,
   status: EventStatus['REJECTED'],
-  startTime: dayjs('2023-01-07T14:27'),
-  endTime: dayjs('2023-01-08T03:28'),
-  dateBefore: dayjs('2023-01-07T16:33'),
+  startTime: dayjs('2023-01-07T16:10'),
+  endTime: dayjs('2023-01-08T05:11'),
+  dateBefore: dayjs('2023-01-07T18:16'),
 };
 
 export const sampleWithNewData: NewEvent = {

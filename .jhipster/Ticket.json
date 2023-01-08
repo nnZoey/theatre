@@ -1,6 +1,6 @@
 {
   "applications": ["ticket"],
-  "changelogDate": "20230108065044",
+  "changelogDate": "20230108083355",
   "dto": "no",
   "embedded": false,
   "entityTableName": "ticket",
@@ -19,9 +19,8 @@
     {
       "otherEntityName": "seat",
       "otherEntityRelationshipName": "ticket",
-      "ownerSide": true,
       "relationshipName": "seat",
-      "relationshipType": "one-to-one"
+      "relationshipType": "many-to-one"
     },
     {
       "otherEntityName": "order",

@@ -1,7 +1,7 @@
-import dayjs from 'dayjs/esm';
-import { IEventType } from 'app/entities/event-type/event-type.model';
-import { IStage } from 'app/entities/stage/stage.model';
 import { EventStatus } from 'app/entities/enumerations/event-status.model';
+import { IEventType } from 'app/entities/event-type/event-type.model';
+import dayjs from 'dayjs/esm';
+import { IStage } from '../stage/stage.model';
 
 export interface IEvent {
   id: number;
@@ -12,8 +12,8 @@ export interface IEvent {
   startTime?: dayjs.Dayjs | null;
   endTime?: dayjs.Dayjs | null;
   dateBefore?: dayjs.Dayjs | null;
-  eventType?: Pick<IEventType, 'id'> | null;
-  stage?: Pick<IStage, 'id'> | null;
+  eventType?: IEventType | null;
+  stage?: IStage | null;
 }
 
 export type NewEvent = Omit<IEvent, 'id'> & { id: null };

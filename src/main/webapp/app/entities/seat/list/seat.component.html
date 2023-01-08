@@ -82,6 +82,16 @@
           </td>
           <td class="text-end">
             <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/ticket']"
+                [queryParams]="{ 'filter[seatId.in]': seat.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">Show Ticket</span>
+              </button>
               <button type="submit" [routerLink]="['/seat', seat.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
                 <fa-icon icon="eye"></fa-icon>
                 <span class="d-none d-md-inline">View</span>
