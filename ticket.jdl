@@ -106,7 +106,6 @@ entity Comment {
 }
 
 relationship OneToOne {
-    Ticket to Seat
     AppUser to User
 }
 
